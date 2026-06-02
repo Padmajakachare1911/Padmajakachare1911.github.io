@@ -1,0 +1,373 @@
+/**
+ * simulation.css
+ * ─────────────────────────────────────────────────────────────
+ * PURPOSE: Styles for the "Candidate Simulation Engine" —
+ *          the signature interactive feature of the portfolio.
+ *          Visitors select requirements and run a simulation
+ *          that always recommends Padmaja.
+ *
+ * LOGIC: A two-panel layout — left has skill selector chips,
+ *        right shows the animated simulation output.
+ *        The processing animation uses pseudo-CSS and keyframes.
+ *        Result panel slides in after JS sets .show class.
+ *
+ * CUSTOMIZATION: Change skill chips in index.html.
+ *                Adjust score range in simulation.js.
+ * ─────────────────────────────────────────────────────────────
+ */
+
+#simulation {
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+/* Big decorative background text */
+.simulation__bg-text {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 200px;
+  font-weight: var(--weight-black);
+  color: rgba(139, 92, 246, 0.03);
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  right: -20px;
+  bottom: 0;
+  line-height: 1;
+}
+
+/* ── SIMULATION LAYOUT ─────────────────────────────────────── */
+.simulation__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* ── LEFT — REQUIREMENTS SELECTOR ─────────────────────────── */
+.simulation__panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-7);
+}
+
+.simulation__panel-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.simulation__panel-title svg {
+  opacity: 0.7;
+}
+
+/* Instruction */
+.simulation__hint {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-5);
+  line-height: 1.6;
+}
+
+/* Skill selector chips */
+.simulation__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.sim-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: transparent;
+  user-select: none;
+}
+
+.sim-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(139, 92, 246, 0.06);
+}
+
+.sim-chip.selected {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(139, 92, 246, 0.12);
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+}
+
+.sim-chip__icon {
+  font-size: 16px;
+}
+
+.sim-chip.selected .sim-chip__check {
+  display: inline;
+  color: var(--color-success);
+}
+.sim-chip .sim-chip__check { display: none; }
+
+/* Run button */
+.simulation__run-btn {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--text-base);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.simulation__run-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.1) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Selection counter */
+.simulation__counter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-align: center;
+  margin-top: var(--space-3);
+}
+
+.simulation__counter span {
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* ── RIGHT — SIMULATION OUTPUT ─────────────────────────────── */
+.simulation__output {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-7);
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Default idle state */
+.simulation__idle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.simulation__idle-icon {
+  font-size: 56px;
+  animation: float 4s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+.simulation__idle-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
+  line-height: 1.6;
+}
+
+/* Processing state */
+.simulation__processing {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.simulation__processing.active {
+  display: flex;
+}
+
+.process-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(139, 92, 246, 0.04);
+  border: 1px solid transparent;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.4s ease;
+}
+
+.process-step.running {
+  opacity: 1;
+  transform: translateX(0);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: var(--color-text);
+}
+
+.process-step.done {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-success);
+}
+
+.process-step__icon {
+  font-size: 14px;
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+.process-step.done .process-step__icon {
+  animation: none;
+  color: var(--color-success);
+}
+
+/* Result card */
+.simulation__result {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.simulation__result.show {
+  display: flex;
+  animation: fadeInUp 0.6s var(--transition-spring) both;
+}
+
+/* Score ring */
+.result__score-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+}
+
+.result__ring-svg {
+  transform: rotate(-90deg);
+}
+
+.result__ring-bg {
+  fill: none;
+  stroke: rgba(139, 92, 246, 0.15);
+  stroke-width: 8;
+}
+
+.result__ring-fill {
+  fill: none;
+  stroke: url(#ringGradient);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 283; /* 2πr where r=45 */
+  stroke-dashoffset: 283;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.result__ring-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.result__score-number {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  color: var(--color-primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.result__score-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Candidate recommendation block */
+.result__candidate {
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.result__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-2);
+}
+
+.result__name {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-1);
+}
+
+.result__title {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Matched skills list */
+.result__matched-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+.result__skill-match {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+}

@@ -1,0 +1,254 @@
+/**
+ * training.css
+ * ─────────────────────────────────────────────────────────────
+ * PURPOSE: Styles for "Training Epochs" — the education
+ *          timeline section. Each epoch represents a learning
+ *          milestone styled as an ML training run.
+ *
+ * LOGIC: Vertical timeline with alternating cards left/right
+ *        on desktop, single-column on mobile.
+ *        Cards expand/collapse on click (JS in timeline.js).
+ *        Active epoch glows with the primary brand color.
+ *
+ * CUSTOMIZATION: Add new epochs in index.html.
+ *                Adjust the connector line color via --color-primary.
+ * ─────────────────────────────────────────────────────────────
+ */
+
+#training { background: var(--color-bg); }
+
+/* ── TIMELINE WRAPPER ──────────────────────────────────────── */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin-inline: auto;
+  padding-block: var(--space-4);
+}
+
+/* Vertical center line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg,
+    transparent,
+    var(--color-primary) 10%,
+    var(--color-primary) 90%,
+    transparent
+  );
+  opacity: 0.4;
+}
+
+/* ── EPOCH ITEM ────────────────────────────────────────────── */
+.epoch {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  margin-bottom: var(--space-10);
+  position: relative;
+}
+
+/* Alternate card side */
+.epoch:nth-child(even) .epoch__card { grid-column: 3; }
+.epoch:nth-child(even) .epoch__node { grid-column: 2; }
+.epoch:nth-child(even) .epoch__spacer { grid-column: 1; grid-row: 1; }
+
+.epoch:nth-child(odd) .epoch__card  { grid-column: 1; }
+.epoch:nth-child(odd) .epoch__node  { grid-column: 2; }
+
+/* ── EPOCH NODE (center dot) ───────────────────────────────── */
+.epoch__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+
+.epoch__dot {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 3px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.1);
+  transition: all var(--transition-base);
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.epoch.active .epoch__dot {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.2), var(--shadow-glow);
+  animation: glow-pulse 2s infinite;
+}
+
+.epoch__number-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--color-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── EPOCH CARD ────────────────────────────────────────────── */
+.epoch__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.epoch__card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.epoch.active .epoch__card {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.2), var(--shadow-card);
+}
+
+/* Card header */
+.epoch__card-header {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.epoch__card-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.epoch__card-meta {
+  flex: 1;
+}
+
+.epoch__year {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.epoch__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+  line-height: 1.3;
+}
+
+.epoch__institution {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Expand toggle */
+.epoch__toggle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 14px;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.epoch.expanded .epoch__toggle {
+  transform: rotate(180deg);
+  background: rgba(139, 92, 246, 0.2);
+}
+
+/* Card body — expandable */
+.epoch__card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow);
+}
+
+.epoch.expanded .epoch__card-body {
+  max-height: 400px;
+}
+
+.epoch__card-body-inner {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.epoch__description {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+/* Skill chips earned in this epoch */
+.epoch__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.epoch__skill-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-primary);
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* Score / grade row */
+.epoch__grade {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(139, 92, 246, 0.06);
+  border-radius: var(--radius-lg);
+}
+
+.epoch__grade-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-faint);
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.epoch__grade-value {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  color: var(--color-success);
+  font-size: var(--text-sm);
+}
+
+/* Spacer column (pushes card to correct side) */
+.epoch__spacer { /* empty */ }

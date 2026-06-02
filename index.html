@@ -1,1068 +1,2025 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Padmaja Kachare — Diary Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-/* ===== ROOT ===== */
-:root{
-  --blush:#f9e8ee; --rose:#e8a4bc; --dusty:#d4789a; --deep:#b5547a;
-  --cream:#fdf6f0; --warm:#fff9f5; --ink:#2d1f26; --inkl:#6b4858;
-  --tan:#f0d9c8; --tan2:#e8c9b0; --paper:#fffdf8; --ruled:#f0dde6;
-  --shadow:0 4px 24px rgba(180,84,120,.10);
-  --shadow-lg:0 8px 40px rgba(180,84,120,.18);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;overflow:hidden;background:#c9a4b8;font-family:'DM Sans',sans-serif;font-weight:300;color:var(--ink);cursor:none}
+  <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  PadmajaAI v2.6 — Portfolio Website                     ║
+    ║  Author: Padmaja Suresh Kachare                         ║
+    ║  GitHub: github.com/Padmajakachare1911                  ║
+    ║  Built with: HTML5 + CSS3 + Vanilla JavaScript          ║
+    ║  Deployable on: GitHub Pages (no build step needed)     ║
+    ╚══════════════════════════════════════════════════════════╝
+  -->
 
-/* ===== CUSTOM CURSOR ===== */
-#cur{width:10px;height:10px;background:var(--dusty);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:transform .12s}
-#cur-ring{width:32px;height:32px;border:1.5px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .06s,top .06s;opacity:.7}
+  <!-- ── META ─────────────────────────────────────────────── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PadmajaAI v2.6 — Interactive AI portfolio of Padmaja Kachare, aspiring AI & Machine Learning Engineer. Explore projects, skills, and research in an immersive AI system experience." />
+  <meta name="keywords" content="Padmaja Kachare, AI Engineer, Machine Learning, Deep Learning, NLP, Python, TensorFlow, Portfolio, Data Science" />
+  <meta name="author" content="Padmaja Suresh Kachare" />
 
-/* ===== BOOK SHELL ===== */
-#book-shell{
-  position:fixed;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  perspective:2800px;
-  background: radial-gradient(ellipse at 40% 60%, #c18faa 0%, #a67090 40%, #8a5678 100%);
-}
-/* warm table surface feel */
-#book-shell::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.03) 39px,rgba(255,255,255,.03) 40px),
-             repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.03) 39px,rgba(255,255,255,.03) 40px);
-  pointer-events:none;
-}
-#book{
-  position:relative;
-  width:min(1160px,94vw);
-  height:min(760px,90vh);
-  transform-style:preserve-3d;
-}
+  <!-- Open Graph / Social -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="PadmajaAI v2.6 — AI Engineer Portfolio" />
+  <meta property="og:description" content="Interactive AI-themed portfolio of Padmaja Kachare. AI Laboratory × Neural Network × Research Notebook." />
+  <meta property="og:url"         content="https://padmajakachare1911.github.io" />
+  <meta name="twitter:card"       content="summary_large_image" />
 
-/* book shadow on table */
-#book::after{
-  content:'';position:absolute;bottom:-28px;left:5%;width:90%;height:30px;
-  background:radial-gradient(ellipse,rgba(80,20,40,.35) 0%,transparent 70%);
-  filter:blur(6px);pointer-events:none;
-}
+  <!-- ── TITLE ────────────────────────────────────────────── -->
+  <title>PadmajaAI v2.6 — AI & ML Engineer Portfolio</title>
 
-/* ===== SPINE ===== */
-#spine{
-  position:absolute;left:-22px;top:0;width:22px;height:100%;
-  background:linear-gradient(90deg,#9a3d62,#c4688a,#b5547a);
-  border-radius:4px 0 0 4px;
-  box-shadow:-4px 0 18px rgba(80,20,40,.35);
-  display:flex;align-items:center;justify-content:center;
-  z-index:5;
-}
-#spine-text{
-  writing-mode:vertical-rl;transform:rotate(180deg);
-  font-family:'Caveat',cursive;font-size:.85rem;color:rgba(255,255,255,.85);
-  letter-spacing:.12em;
-}
+  <!-- ── FAVICON ──────────────────────────────────────────── -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238B5CF6'/><text y='.9em' font-size='80' x='10'>🧠</text></svg>" />
 
-/* ===== PAGES ===== */
-.page{
-  position:absolute;inset:0;
-  background:var(--paper);
-  border-radius:0 12px 12px 0;
-  overflow:hidden;
-  transform-origin:left center;
-  transform-style:preserve-3d;
-  backface-visibility:hidden;
-  transition:transform .9s cubic-bezier(.645,.045,.355,1.000),box-shadow .9s;
-  box-shadow:4px 0 40px rgba(80,20,40,.18),2px 0 8px rgba(80,20,40,.10);
-  will-change:transform;
-}
+  <!-- ── FONTS ────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-/* stacked z ordering */
-.page[data-idx="0"]{z-index:8}
-.page[data-idx="1"]{z-index:7}
-.page[data-idx="2"]{z-index:6}
-.page[data-idx="3"]{z-index:5}
-.page[data-idx="4"]{z-index:4}
-.page[data-idx="5"]{z-index:3}
-.page[data-idx="6"]{z-index:2}
-.page[data-idx="7"]{z-index:1}
+  <!-- ── CSS ──────────────────────────────────────────────── -->
+  <!-- CUSTOMIZATION: Import order matters — variables must be first -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/dataset.css" />
+  <link rel="stylesheet" href="css/features.css" />
+  <link rel="stylesheet" href="css/training.css" />
+  <link rel="stylesheet" href="css/experiments.css" />
+  <link rel="stylesheet" href="css/simulation.css" />
+  <link rel="stylesheet" href="css/evaluation.css" />
+  <link rel="stylesheet" href="css/research.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+  <link rel="stylesheet" href="css/deployment.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 
-/* turned pages rotate out */
-.page.turned{
-  transform:rotateY(-180deg);
-  box-shadow:-4px 0 40px rgba(80,20,40,.22);
-  z-index:20!important;
-}
+  <!-- ── INLINE CRITICAL STYLES ───────────────────────────── -->
+  <!-- Prevent flash of wrong theme before JS loads -->
+  <style>
+    /* Command palette overlay */
+    #cmd-palette {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: 15vh;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    #cmd-palette.active { opacity: 1; pointer-events: all; }
 
-/* page back face — shows paper texture when turned */
-.page::after{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,#f5dce8 0%,#fce8f0 50%,#f0d4e2 100%);
-  transform:rotateY(180deg);
-  backface-visibility:hidden;
-  border-radius:0 12px 12px 0;
-}
+    .cmd-palette__inner {
+      width: min(560px, calc(100vw - 3rem));
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(0.98);
+      transition: transform 0.2s var(--transition-spring);
+    }
+    #cmd-palette.active .cmd-palette__inner { transform: translateY(0) scale(1); }
 
-/* ruled lines on every page */
-.page-inner{
-  position:relative;width:100%;height:100%;
-  padding:48px 54px 48px 66px;
-  overflow:hidden;
-}
-.page-inner::before{
-  content:'';position:absolute;inset:0;
-  background-image:
-    repeating-linear-gradient(transparent,transparent 31px,rgba(232,164,188,.22) 31px,rgba(232,164,188,.22) 32px);
-  pointer-events:none;
-}
-/* left margin red line */
-.page-inner::after{
-  content:'';position:absolute;left:52px;top:0;bottom:0;width:2px;
-  background:rgba(220,130,160,.3);pointer-events:none;
-}
+    .cmd-palette__header {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .cmd-palette__search-icon { font-size: 18px; opacity: 0.5; }
+    #cmd-input {
+      flex: 1; background: none; border: none; outline: none;
+      font-size: 1rem; color: var(--color-text);
+      font-family: var(--font-primary);
+    }
+    #cmd-input::placeholder { color: var(--color-text-faint); }
+    .cmd-palette__shortcut {
+      font-family: var(--font-mono); font-size: 10px;
+      color: var(--color-text-faint);
+      background: rgba(139,92,246,0.1);
+      padding: 2px 6px; border-radius: 4px;
+    }
 
-/* page curl shadow on right edge */
-.page-curl{
-  position:absolute;right:0;top:0;bottom:0;width:32px;
-  background:linear-gradient(to left,rgba(180,100,130,.08),transparent);
-  pointer-events:none;border-radius:0 12px 12px 0;
-}
+    #cmd-list { padding: 0.5rem; max-height: 380px; overflow-y: auto; }
+    .cmd-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .cmd-item:hover, .cmd-item--active {
+      background: rgba(139,92,246,0.1);
+    }
+    .cmd-item__icon { font-size: 16px; flex-shrink: 0; }
+    .cmd-item__label { font-size: 0.875rem; color: var(--color-text); }
+    .cmd-empty {
+      text-align: center; padding: 2rem;
+      font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--color-text-faint);
+    }
+    .cmd-palette__footer {
+      padding: 0.5rem 1rem; border-top: 1px solid var(--color-border);
+      display: flex; gap: 1rem; font-family: var(--font-mono); font-size: 10px;
+      color: var(--color-text-faint);
+    }
+    .cmd-palette__footer kbd {
+      background: rgba(139,92,246,0.1); color: var(--color-primary);
+      padding: 1px 5px; border-radius: 3px; font-size: 10px;
+    }
 
-/* page number */
-.page-num{
-  position:absolute;bottom:18px;right:28px;
-  font-family:'Caveat',cursive;font-size:.8rem;color:var(--rose);
-}
-/* date stamp */
-.page-date{
-  position:absolute;top:16px;right:28px;
-  font-family:'Caveat',cursive;font-size:.78rem;color:var(--inkl);opacity:.7;
-}
+    /* Easter egg console */
+    #easter-egg {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 600; display: flex;
+      align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #easter-egg.active { opacity: 1; pointer-events: all; }
 
-/* ===== SECTION LABEL ===== */
-.sec-label{
-  font-family:'Caveat',cursive;
-  font-size:.92rem;color:var(--dusty);letter-spacing:.1em;
-  margin-bottom:5px;
-  display:flex;align-items:center;gap:8px;
-}
-.sec-label::before{content:'';display:inline-block;width:22px;height:2px;background:var(--rose);border-radius:2px}
-.sec-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.6rem,3.2vw,2.4rem);
-  color:var(--ink);margin-bottom:22px;line-height:1.15;
-}
+    .easter-egg__terminal {
+      width: min(580px, 100%);
+      background: #0d1117;
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(139,92,246,0.2);
+    }
+    .easter-egg__bar {
+      background: #161b22; padding: 0.75rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+    .easter-egg__dot { width: 12px; height: 12px; border-radius: 50%; }
+    .easter-egg__title {
+      flex: 1; text-align: center;
+      font-family: var(--font-mono); font-size: 12px; color: #6B7280;
+    }
+    #easter-egg-close {
+      color: #6B7280; cursor: pointer; font-size: 14px;
+      background: none; border: none;
+    }
+    #easter-egg-close:hover { color: #EF4444; }
 
-/* ===== HANDWRITING REVEAL ===== */
-@keyframes write{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0% 0 0)}}
-.handwrite{animation:write 1.1s ease both}
-.handwrite-d1{animation:write 1.1s .15s ease both}
-.handwrite-d2{animation:write 1.1s .3s ease both}
-.handwrite-d3{animation:write 1.1s .45s ease both}
+    #easter-output {
+      padding: 1.25rem; font-family: var(--font-mono); font-size: 13px;
+      color: #94A3B8; line-height: 1.8; min-height: 280px;
+      max-height: 400px; overflow-y: auto;
+    }
+    #easter-output div { animation: fadeIn 0.1s ease both; }
 
-/* ===== FADE-UP ===== */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.fu{animation:fadeUp .6s ease both}
-.fu1{animation:fadeUp .6s .1s ease both}
-.fu2{animation:fadeUp .6s .2s ease both}
-.fu3{animation:fadeUp .6s .3s ease both}
-.fu4{animation:fadeUp .6s .4s ease both}
-.fu5{animation:fadeUp .6s .5s ease both}
+    /* Initial metric card state (pre-animation) */
+    .metric-card { opacity: 0; transform: translateY(12px); }
+    .hero-reveal  { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .hero-reveal.revealed { opacity: 1; transform: translateY(0); }
+  </style>
 
-/* ===== PRESSED FLOWER DECO ===== */
-.flower-deco{position:absolute;opacity:.18;pointer-events:none;font-size:2rem;line-height:1}
-.flower-deco.f1{top:18px;left:14px;font-size:1.4rem;opacity:.14;transform:rotate(-20deg)}
-.flower-deco.f2{bottom:40px;right:14px;font-size:1.8rem;opacity:.12;transform:rotate(15deg)}
-.flower-deco.f3{top:50%;left:8px;font-size:1.1rem;opacity:.1;transform:rotate(5deg)}
-
-/* ===== WASHI TAPE ===== */
-.washi{
-  position:absolute;
-  height:22px;background:repeating-linear-gradient(45deg,rgba(232,164,188,.45) 0,rgba(232,164,188,.45) 4px,rgba(253,232,238,.6) 4px,rgba(253,232,238,.6) 8px);
-  border-radius:2px;
-  box-shadow:1px 2px 4px rgba(180,84,120,.12);
-}
-.washi.w-top{top:-5px;left:60px;width:120px;transform:rotate(-1.5deg)}
-.washi.w-top2{top:-5px;right:80px;width:80px;transform:rotate(1deg)}
-.washi.w-mid{transform:rotate(-0.8deg)}
-
-/* ===== NAV — BOOKMARK TABS ===== */
-#nav-tabs{
-  position:absolute;right:-44px;top:50%;transform:translateY(-50%);
-  display:flex;flex-direction:column;gap:6px;z-index:30;
-}
-.tab-btn{
-  writing-mode:vertical-rl;transform:rotate(180deg);
-  background:var(--blush);
-  border:none;cursor:pointer;
-  font-family:'Caveat',cursive;font-size:.78rem;color:var(--inkl);
-  padding:12px 8px;
-  border-radius:0 6px 6px 0;
-  box-shadow:3px 2px 10px rgba(180,84,120,.18);
-  transition:background .2s,color .2s,transform .2s;
-  letter-spacing:.06em;
-}
-.tab-btn:hover,.tab-btn.active{background:var(--dusty);color:#fff;transform:rotate(180deg) translateX(-4px)}
-
-/* ===== PAGE TURN ARROWS ===== */
-#arrow-prev,#arrow-next{
-  position:absolute;bottom:20px;
-  background:var(--dusty);color:#fff;border:none;cursor:pointer;
-  width:42px;height:42px;border-radius:50%;
-  font-size:1.1rem;display:flex;align-items:center;justify-content:center;
-  box-shadow:var(--shadow);
-  transition:background .2s,transform .2s;z-index:50;
-}
-#arrow-prev{left:20px}
-#arrow-next{right:20px}
-#arrow-prev:hover,#arrow-next:hover{background:var(--deep);transform:scale(1.1)}
-
-/* ===== PAGE TURN HINT ===== */
-#turn-hint{
-  position:absolute;bottom:68px;left:50%;transform:translateX(-50%);
-  font-family:'Caveat',cursive;font-size:.82rem;color:var(--rose);
-  animation:pulse-hint 2.5s ease-in-out infinite;
-  pointer-events:none;white-space:nowrap;z-index:50;
-}
-@keyframes pulse-hint{0%,100%{opacity:.7}50%{opacity:.2}}
-
-/* ===== COVER PAGE ===== */
-#cover-page{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,#f9d0df 0%,#fce8f0 40%,#f5c8d8 100%);
-  border-radius:0 12px 12px 0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  z-index:50;cursor:pointer;
-  transition:transform .9s cubic-bezier(.645,.045,.355,1);
-  transform-origin:left center;
-  backface-visibility:hidden;
-  box-shadow:4px 0 40px rgba(80,20,40,.22);
-}
-#cover-page.opened{transform:rotateY(-180deg);pointer-events:none}
-.cover-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,5vw,3.4rem);
-  color:var(--deep);text-align:center;line-height:1.15;
-  margin-bottom:10px;
-}
-.cover-sub{
-  font-family:'Caveat',cursive;
-  font-size:1.3rem;color:var(--inkl);text-align:center;
-  margin-bottom:32px;letter-spacing:.04em;
-}
-.cover-open-hint{
-  font-family:'Caveat',cursive;font-size:1rem;color:var(--dusty);
-  animation:pulse-hint 2s ease-in-out infinite;
-  margin-top:8px;letter-spacing:.08em;
-}
-/* decorative cover lines */
-.cover-line{
-  width:60%;height:1.5px;background:linear-gradient(90deg,transparent,var(--rose),transparent);
-  margin:10px auto;border-radius:2px;
-}
-/* cover flower doodle */
-.cover-doodle{
-  font-size:3.2rem;margin-bottom:18px;
-  animation:spin-slow 12s linear infinite;
-}
-@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
-/* ===== INK BLOT DECO ===== */
-.ink-blot{
-  position:absolute;border-radius:50%;
-  background:radial-gradient(circle,rgba(180,84,120,.08),transparent 70%);
-  pointer-events:none;
-}
-
-/* ===== HERO CONTENT (Page 1) ===== */
-.hero-name{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.9rem,3.8vw,3rem);
-  color:var(--ink);line-height:1.1;margin-bottom:8px;
-}
-.hero-name em{font-style:italic;color:var(--deep)}
-.hero-sub{
-  font-family:'Caveat',cursive;font-size:1.15rem;color:var(--inkl);
-  margin-bottom:22px;letter-spacing:.02em;
-}
-.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.tag{
-  background:var(--warm);border:1px solid var(--rose);
-  color:var(--deep);font-size:.75rem;font-weight:500;
-  padding:4px 13px;border-radius:40px;letter-spacing:.04em;
-}
-.hero-links{display:flex;gap:12px;flex-wrap:wrap}
-.hlink{
-  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
-  background:var(--dusty);color:#fff;font-size:.82rem;font-weight:500;
-  padding:9px 20px;border-radius:40px;
-  transition:background .2s,transform .2s;
-  box-shadow:0 4px 14px rgba(180,84,120,.25);
-}
-.hlink:hover{background:var(--deep);transform:translateY(-2px)}
-.hlink.sec{background:transparent;border:1.5px solid var(--dusty);color:var(--deep);box-shadow:none}
-.hlink.sec:hover{background:var(--blush)}
-
-/* pen scribble underline */
-.scribble{
-  display:inline-block;position:relative;
-}
-.scribble::after{
-  content:'';position:absolute;left:0;bottom:-3px;width:100%;height:3px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='6'%3E%3Cpath d='M0 4 Q15 0 30 3 Q45 6 60 3 Q75 0 90 3 Q105 6 120 3' stroke='%23d4789a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x center / 120px 6px;
-}
-
-/* ===== JOURNAL ENTRIES ===== */
-.journal-entry{margin-bottom:20px}
-.entry-date{
-  font-family:'Caveat',cursive;color:var(--dusty);font-size:.88rem;margin-bottom:3px
-}
-.journal-entry p{font-size:.9rem;line-height:1.8;color:var(--inkl)}
-.journal-entry p strong{color:var(--ink);font-weight:500}
-
-/* ===== STICKY NOTES ===== */
-.sticky-board{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
-}
-@media(max-width:700px){.sticky-board{grid-template-columns:repeat(2,1fr)}}
-.sticky{
-  padding:18px 16px 22px;border-radius:3px;cursor:pointer;position:relative;
-  transition:transform .22s,box-shadow .22s;
-  box-shadow:3px 5px 16px rgba(100,40,60,.13);
-}
-.sticky:nth-child(1){background:#fce4ec;transform:rotate(-1.5deg)}
-.sticky:nth-child(2){background:#f8bbd0;transform:rotate(1deg)}
-.sticky:nth-child(3){background:#fce4ec;transform:rotate(-.8deg)}
-.sticky:nth-child(4){background:#e8f5e9;transform:rotate(1.2deg)}
-.sticky:nth-child(5){background:#fff3e0;transform:rotate(-1deg)}
-.sticky:nth-child(6){background:#e3f2fd;transform:rotate(.6deg)}
-.sticky::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:22px;height:11px;background:rgba(180,84,120,.25);border-radius:2px}
-.sticky:hover{transform:rotate(0deg) scale(1.05) translateY(-5px)!important;box-shadow:6px 10px 32px rgba(100,40,60,.2);z-index:10}
-.sticky-emoji{font-size:1.4rem;margin-bottom:7px}
-.sticky-title{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:7px}
-.sticky-desc{font-size:.75rem;line-height:1.6;color:var(--inkl)}
-.sticky-stack{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px}
-.stack-chip{font-size:.64rem;font-weight:500;background:rgba(255,255,255,.7);border-radius:20px;padding:2px 7px;color:var(--ink)}
-
-/* ===== SKILLS GRID ===== */
-.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-@media(max-width:700px){.skills-grid{grid-template-columns:repeat(3,1fr)}}
-.skill-item{
-  background:var(--warm);border-radius:12px;padding:14px 10px;
-  text-align:center;box-shadow:var(--shadow);
-  transition:transform .2s,box-shadow .2s;
-}
-.skill-item:hover{transform:translateY(-5px);box-shadow:0 8px 24px rgba(100,40,60,.16)}
-.skill-icon{font-size:1.5rem;margin-bottom:5px}
-.skill-name{font-size:.73rem;font-weight:500;color:var(--ink)}
-.skill-type{font-family:'Caveat',cursive;font-size:.66rem;color:var(--dusty);margin-top:2px}
-
-/* ===== TIMELINE ===== */
-.timeline{position:relative;padding-left:32px;max-height:460px;overflow-y:auto;padding-right:4px}
-.timeline::-webkit-scrollbar{width:4px}
-.timeline::-webkit-scrollbar-thumb{background:var(--rose);border-radius:4px}
-.timeline::before{content:'';position:absolute;left:10px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--rose),var(--tan));border-radius:2px}
-.tl-item{position:relative;margin-bottom:22px}
-.tl-dot{position:absolute;left:-29px;top:6px;width:12px;height:12px;background:var(--dusty);border-radius:50%;border:2px solid var(--cream);box-shadow:0 0 0 2px var(--rose)}
-.tl-card{background:var(--warm);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);border-left:3px solid var(--rose)}
-.tl-company{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--ink);margin-bottom:2px}
-.tl-role{font-size:.75rem;color:var(--dusty);font-weight:500;margin-bottom:5px;letter-spacing:.03em}
-.tl-date{font-family:'Caveat',cursive;font-size:.78rem;color:var(--inkl);margin-bottom:8px}
-.tl-card ul{padding-left:14px}
-.tl-card li{font-size:.78rem;line-height:1.65;color:var(--inkl);margin-bottom:3px}
-
-/* ===== LEARNING / MUG ===== */
-.learning-wrap{display:grid;grid-template-columns:1fr 150px;gap:30px;align-items:center}
-@media(max-width:640px){.learning-wrap{grid-template-columns:1fr}}
-.learn-items{display:flex;flex-direction:column;gap:14px}
-.learn-row{display:flex;align-items:center;gap:12px}
-.learn-label{font-size:.82rem;font-weight:500;min-width:150px;color:var(--ink)}
-.learn-bar-wrap{flex:1;background:var(--blush);border-radius:40px;height:7px;overflow:hidden}
-.learn-bar{height:100%;border-radius:40px;background:linear-gradient(90deg,var(--rose),var(--dusty));animation:fillbar 1.4s ease both}
-@keyframes fillbar{from{width:0}}
-
-/* ===== CERTS ===== */
-.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:640px){.certs-grid{grid-template-columns:repeat(2,1fr)}}
-.cert-card{background:var(--warm);border-radius:11px;padding:13px 14px;box-shadow:var(--shadow);border-top:2px solid var(--rose);font-size:.78rem;color:var(--inkl);transition:transform .2s}
-.cert-card:hover{transform:translateY(-3px)}
-.cert-issuer{font-size:.65rem;color:var(--dusty);font-weight:500;margin-bottom:4px;letter-spacing:.05em;text-transform:uppercase}
-
-/* ===== CONTACT ===== */
-.contact-inner{text-align:center;padding:10px 0 0}
-.contact-inner p{font-size:.9rem;line-height:1.85;color:var(--inkl);max-width:480px;margin:0 auto 26px}
-.contact-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.clink{text-decoration:none;display:inline-flex;align-items:center;gap:7px;background:var(--warm);border:1.5px solid var(--rose);color:var(--deep);padding:10px 20px;border-radius:40px;font-size:.82rem;font-weight:500;transition:background .2s,transform .2s;box-shadow:var(--shadow)}
-.clink:hover{background:var(--dusty);color:#fff;transform:translateY(-2px)}
-
-/* ===== MODAL ===== */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(45,31,38,.55);backdrop-filter:blur(8px);z-index:500;align-items:center;justify-content:center;padding:24px}
-.modal-overlay.open{display:flex}
-.modal{background:var(--warm);border-radius:20px;padding:38px;max-width:520px;width:100%;box-shadow:var(--shadow-lg);position:relative;animation:fadeUp .3s ease}
-.modal-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--inkl);line-height:1}
-.modal-emoji{font-size:2.2rem;margin-bottom:10px}
-.modal-title{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:12px}
-.modal-body{font-size:.88rem;line-height:1.8;color:var(--inkl)}
-.modal-body ul{padding-left:16px;margin-top:7px}
-.modal-body li{margin-bottom:4px}
-.modal-stack{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px}
-.modal-stack span{font-size:.72rem;font-weight:500;background:var(--blush);border:1px solid var(--rose);border-radius:30px;padding:3px 11px;color:var(--deep)}
-
-/* ===== PAPER TEXTURE ===== */
-.page-inner{
-  background-image:
-    radial-gradient(ellipse at 10% 10%,rgba(255,240,245,.8) 0%,transparent 60%),
-    radial-gradient(ellipse at 90% 90%,rgba(240,220,230,.4) 0%,transparent 50%);
-}
-
-/* ===== DOODLE ANIMATIONS ===== */
-@keyframes doodle-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(-1deg)}}
-@keyframes doodle-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-.doodle-star{position:absolute;font-size:1rem;opacity:.18;pointer-events:none;animation:doodle-bob 3.5s ease-in-out infinite}
-.doodle-heart{position:absolute;font-size:.85rem;opacity:.15;pointer-events:none;animation:doodle-bob 4s 1s ease-in-out infinite}
-
-/* ===== PAPERCLIP DECO ===== */
-.paperclip{position:absolute;top:12px;left:30px;opacity:.35;font-size:1.4rem;transform:rotate(-15deg)}
-
-/* ===== PROGRESS DOTS ===== */
-#progress-dots{
-  position:absolute;left:50%;bottom:8px;transform:translateX(-50%);
-  display:flex;gap:7px;z-index:50;
-}
-.dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--rose);opacity:.35;
-  transition:opacity .3s,transform .3s;cursor:pointer;
-}
-.dot.active{opacity:1;transform:scale(1.3);background:var(--dusty)}
-
-/* ===== TOOLTIP ===== */
-#page-label{
-  position:absolute;left:50%;bottom:36px;transform:translateX(-50%);
-  font-family:'Caveat',cursive;font-size:.78rem;color:var(--dusty);
-  opacity:0;transition:opacity .4s;z-index:50;white-space:nowrap;
-  pointer-events:none;
-}
-#page-label.show{opacity:1}
-
-/* scrollbar hide for overflow pages */
-.page-inner.scrollable{overflow-y:auto;padding-right:10px}
-.page-inner.scrollable::-webkit-scrollbar{width:3px}
-.page-inner.scrollable::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
-</style>
+  <!-- DARK MODE: Apply theme immediately before body renders to prevent flash -->
+  <script src="js/darkmode.js"></script>
 </head>
+
 <body>
 
-<div id="cur"></div>
-<div id="cur-ring"></div>
+<!-- ════════════════════════════════════════════════════════════
+     BOOT SEQUENCE OVERLAY
+     Appears on first load, runs startup animation, then fades
+════════════════════════════════════════════════════════════ -->
+<div id="boot-overlay" role="status" aria-label="Initializing PadmajaAI">
+  <div class="boot__logo">
+    <div class="boot__logo-icon">🧠</div>
+    <div class="boot__system-name">PadmajaAI</div>
+    <div class="boot__version">v2.6 — Initializing...</div>
+  </div>
 
-<!-- ===== BOOK SHELL ===== -->
-<div id="book-shell">
-  <div id="book">
+  <div class="boot__log" id="boot-log" aria-live="polite">
+    <!-- Steps injected by animations.js -->
+  </div>
 
-    <!-- SPINE -->
-    <div id="spine">
-      <span id="spine-text">Padmaja Kachare · 2025</span>
+  <div class="boot__progress-wrap">
+    <div class="boot__progress-track">
+      <div class="boot__progress-fill" id="boot-progress"></div>
     </div>
+    <div class="boot__progress-label" id="boot-progress-label">0%</div>
+  </div>
+</div>
 
-    <!-- BOOKMARK TABS -->
-    <div id="nav-tabs">
-      <button class="tab-btn active" data-page="0">Home</button>
-      <button class="tab-btn" data-page="1">About</button>
-      <button class="tab-btn" data-page="2">Projects</button>
-      <button class="tab-btn" data-page="3">Skills</button>
-      <button class="tab-btn" data-page="4">Experience</button>
-      <button class="tab-btn" data-page="5">Learning</button>
-      <button class="tab-btn" data-page="6">Certs</button>
-      <button class="tab-btn" data-page="7">Contact</button>
+<!-- ════════════════════════════════════════════════════════════
+     COMMAND PALETTE (Ctrl+K)
+════════════════════════════════════════════════════════════ -->
+<div id="cmd-palette" role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="cmd-palette__inner">
+    <div class="cmd-palette__header">
+      <span class="cmd-palette__search-icon">🔍</span>
+      <input id="cmd-input" type="text" placeholder="Type a command or search..." autocomplete="off" />
+      <span class="cmd-palette__shortcut">ESC to close</span>
     </div>
+    <div id="cmd-list"><!-- Rendered by main.js --></div>
+    <div class="cmd-palette__footer">
+      <span><kbd>↑↓</kbd> Navigate</span>
+      <span><kbd>Enter</kbd> Select</span>
+      <span><kbd>Esc</kbd> Close</span>
+    </div>
+  </div>
+</div>
 
-    <!-- PROGRESS DOTS -->
-    <div id="progress-dots"></div>
+<!-- ════════════════════════════════════════════════════════════
+     EASTER EGG CONSOLE (type "help")
+════════════════════════════════════════════════════════════ -->
+<div id="easter-egg" role="dialog" aria-modal="true" aria-label="Secret AI console">
+  <div class="easter-egg__terminal">
+    <div class="easter-egg__bar">
+      <span class="easter-egg__dot" style="background:#ef4444"></span>
+      <span class="easter-egg__dot" style="background:#f59e0b"></span>
+      <span class="easter-egg__dot" style="background:#10b981"></span>
+      <span class="easter-egg__title">padmajaai — bash — 80×24</span>
+      <button id="easter-egg-close" aria-label="Close console">✕</button>
+    </div>
+    <div id="easter-output" aria-live="polite"></div>
+  </div>
+</div>
 
-    <!-- PAGE LABEL -->
-    <div id="page-label"></div>
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR — AI Pipeline Navigation
+════════════════════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__status-bar"></div>
+  <div class="navbar__inner">
+    <!-- Logo -->
+    <a href="#hero" class="navbar__logo" aria-label="PadmajaAI home">
+      <div class="navbar__logo-icon">🧠</div>
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">PadmajaAI</span>
+        <span class="navbar__logo-version">v2.6 ● ACTIVE</span>
+      </div>
+    </a>
 
-    <!-- ARROWS -->
-    <button id="arrow-prev" title="Previous page">‹</button>
-    <button id="arrow-next" title="Next page">›</button>
+    <!-- Desktop Nav — AI Pipeline sections -->
+    <nav class="navbar__nav" aria-label="Site sections">
+      <a href="#dataset"     class="navbar__link"><span class="nav-index">01</span> Dataset</a>
+      <a href="#features"    class="navbar__link"><span class="nav-index">02</span> Features</a>
+      <a href="#training"    class="navbar__link"><span class="nav-index">03</span> Training</a>
+      <a href="#experiments" class="navbar__link"><span class="nav-index">04</span> Experiments</a>
+      <a href="#simulation"  class="navbar__link"><span class="nav-index">05</span> Simulation</a>
+      <a href="#evaluation"  class="navbar__link"><span class="nav-index">06</span> Evaluation</a>
+      <a href="#research"    class="navbar__link"><span class="nav-index">07</span> Research</a>
+      <a href="#deployment"  class="navbar__link"><span class="nav-index">08</span> Deployment</a>
+    </nav>
 
-    <!-- TURN HINT -->
-    <div id="turn-hint">✦ flip the page to begin ✦</div>
+    <!-- Actions -->
+    <div class="navbar__actions">
+      <button class="navbar__cmd" id="cmd-palette-btn" aria-label="Open command palette">
+        <kbd>Ctrl</kbd><kbd>K</kbd>
+        <span>Command</span>
+      </button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">🌙</button>
+      <button class="navbar__hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
 
-    <!-- ========== PAGES ========== -->
+  <!-- Mobile drawer -->
+  <div class="navbar__mobile-menu" id="mobile-menu" role="menu">
+    <a href="#dataset"     class="navbar__link" role="menuitem">01 Dataset</a>
+    <a href="#features"    class="navbar__link" role="menuitem">02 Features</a>
+    <a href="#training"    class="navbar__link" role="menuitem">03 Training</a>
+    <a href="#experiments" class="navbar__link" role="menuitem">04 Experiments</a>
+    <a href="#simulation"  class="navbar__link" role="menuitem">05 Simulation</a>
+    <a href="#evaluation"  class="navbar__link" role="menuitem">06 Evaluation</a>
+    <a href="#research"    class="navbar__link" role="menuitem">07 Research</a>
+    <a href="#deployment"  class="navbar__link" role="menuitem">08 Deployment</a>
+  </div>
+</nav>
 
-    <!-- PAGE 0: HOME / COVER INSIDE -->
-    <div class="page" data-idx="0" id="page-0">
-      <div class="page-inner">
-        <div class="washi w-top"></div>
-        <div class="flower-deco f1">🌸</div>
-        <div class="flower-deco f2">🌷</div>
-        <div class="doodle-star" style="top:40px;right:90px">✦</div>
-        <div class="doodle-star" style="bottom:80px;left:60px;animation-delay:1s">✧</div>
-        <div class="doodle-heart" style="bottom:100px;right:60px">♡</div>
-        <div class="ink-blot" style="width:180px;height:180px;top:-40px;right:-40px"></div>
-        <div class="paperclip">📎</div>
+<!-- ════════════════════════════════════════════════════════════
+     HERO SECTION — Landing / Headline
+════════════════════════════════════════════════════════════ -->
+<section id="hero" aria-label="Hero section">
+  <canvas id="neural-canvas" aria-hidden="true"></canvas>
+  <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
+  <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
 
-        <br/>
-        <h1 class="hero-name handwrite">Padmaja<br/><em>Kachare</em></h1>
-        <p class="hero-sub handwrite-d1">✦ Aspiring AI & Data Science Engineer ✦</p>
+  <div class="hero__inner">
+    <!-- Left: Content -->
+    <div class="hero__content">
+      <div class="hero__system-badge hero-reveal">
+        SYSTEM ONLINE — PadmajaAI v2.6
+      </div>
 
-        <div class="hero-tags fu2">
-          <span class="tag">Machine Learning</span>
-          <span class="tag">Deep Learning</span>
-          <span class="tag">NLP</span>
-          <span class="tag">Data Engineering</span>
-          <span class="tag">Python</span>
-          <span class="tag">Agentic AI</span>
-        </div>
+      <div class="hero__headline">
+        <p class="hero__pre-title hero-reveal" style="transition-delay:0.1s">
+          Hello, World. I'm
+        </p>
+        <h1 class="hero__title hero-reveal" style="transition-delay:0.2s">
+          Padmaja<br>Kachare
+        </h1>
+        <p class="hero__subtitle hero-reveal" style="transition-delay:0.3s">
+          <span id="hero-typing-text"></span><span class="typewriter-cursor" aria-hidden="true"></span>
+        </p>
+      </div>
 
-        <div class="hero-links fu3">
-          <a class="hlink" href="https://linkedin.com/in/padmaja-kachare" target="_blank">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            LinkedIn
-          </a>
-          <a class="hlink sec" href="https://github.com/Padmajakachare1911" target="_blank">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-            GitHub
-          </a>
-          <a class="hlink sec" href="mailto:padmajakachare1911@gmail.com">📧 Email</a>
-        </div>
+      <div class="hero__cta-group hero-reveal" style="transition-delay:0.45s">
+        <a href="#experiments" class="btn btn--primary" id="btn-view-projects">
+          🔬 View Experiments
+        </a>
+        <a href="#simulation" class="btn btn--outline" id="btn-run-sim">
+          ▶ Run Simulation
+        </a>
+      </div>
 
-        <!-- Floating notebook doodle -->
-        <svg style="position:absolute;bottom:30px;right:40px;width:90px;opacity:.55;animation:doodle-bob 5s ease-in-out infinite" viewBox="0 0 90 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="4" width="82" height="102" rx="5" fill="#fce4ec"/>
-          <rect x="4" y="4" width="14" height="102" rx="5" fill="#f48fb1"/>
-          <line x1="24" y1="24" x2="78" y2="24" stroke="#f8bbd0" stroke-width="1.5"/>
-          <line x1="24" y1="36" x2="78" y2="36" stroke="#f8bbd0" stroke-width="1.5"/>
-          <line x1="24" y1="48" x2="78" y2="48" stroke="#f8bbd0" stroke-width="1.5"/>
-          <line x1="24" y1="60" x2="78" y2="60" stroke="#f8bbd0" stroke-width="1.5"/>
-          <line x1="24" y1="72" x2="60" y2="72" stroke="#f8bbd0" stroke-width="1.5"/>
-          <circle cx="11" cy="30" r="3" fill="#e91e8c" opacity=".3"/>
-          <circle cx="11" cy="50" r="3" fill="#e91e8c" opacity=".3"/>
-          <circle cx="11" cy="70" r="3" fill="#e91e8c" opacity=".3"/>
+      <div class="hero__scroll-hint hero-reveal" style="transition-delay:0.6s" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
         </svg>
+        Scroll to explore the pipeline
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 1</div>
-      <div class="page-date">2025 ✦</div>
     </div>
 
-    <!-- PAGE 1: ABOUT / JOURNAL -->
-    <div class="page" data-idx="1" id="page-1">
-      <div class="page-inner scrollable">
-        <div class="washi w-top"></div>
-        <div class="flower-deco f1">🌺</div>
-        <div class="flower-deco f2">🍀</div>
-        <div class="doodle-heart" style="top:50px;right:70px">♡</div>
-        <div class="doodle-star" style="bottom:70px;left:55px">✦</div>
-
-        <p class="sec-label fu">Open Notebook</p>
-        <h2 class="sec-title fu1"><span class="scribble">About Me</span></h2>
-
-        <div class="journal-entry fu2">
-          <p class="entry-date">📖 Entry #1 — Who I Am</p>
-          <p>I'm a <strong>B.Tech AI & Data Science student</strong> from Uran, Navi Mumbai. I love the moment a model clicks into place — when messy data becomes a clear story and code turns into something real and useful.</p>
-        </div>
-        <div class="journal-entry fu3">
-          <p class="entry-date">💡 Entry #2 — What I Do</p>
-          <p>From <strong>end-to-end ML pipelines</strong> to Streamlit & Flask deployments. Interned at <strong>Infosys Springboard, NullClass, Prodigy Infotech</strong> & <strong>SmartInternz</strong>. Each stint made me better at turning chaos into clarity.</p>
-        </div>
-        <div class="journal-entry fu4">
-          <p class="entry-date">🌸 Entry #3 — Beyond the Code</p>
-          <p>When I'm not training models, I'm <strong>doodling</strong> or making art. I believe the best engineers are curious humans who ask "why" more than "how."</p>
-        </div>
-        <div class="journal-entry fu5">
-          <p class="entry-date">🎯 Entry #4 — Where I'm Headed</p>
-          <p>Deeply interested in <strong>agentic AI, scalable data systems</strong>, and ethical AI. My goal: build systems that help real people — not just impress on paper.</p>
-        </div>
-
-        <!-- pen doodle -->
-        <svg style="position:absolute;bottom:24px;right:28px;width:55px;opacity:.3;transform:rotate(-25deg)" viewBox="0 0 30 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="10" height="80" rx="3" fill="#d4789a"/>
-          <polygon points="10,90 20,90 15,115" fill="#2d1f26"/>
-          <rect x="10" y="8" width="10" height="8" rx="2" fill="#f48fb1"/>
-          <circle cx="15" cy="110" r="1.5" fill="#aaa"/>
-        </svg>
+    <!-- Right: Live Metrics Panel -->
+    <div class="hero__metrics" aria-label="Live AI metrics">
+      <div class="hero__metrics-header">
+        <span class="hero__metrics-title">// live_metrics.json</span>
+        <span class="hero__metrics-live">LIVE</span>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 2</div>
-      <div class="page-date">About ✦</div>
-    </div>
 
-    <!-- PAGE 2: PROJECTS -->
-    <div class="page" data-idx="2" id="page-2">
-      <div class="page-inner scrollable">
-        <div class="washi w-top2"></div>
-        <div class="flower-deco f2">🌸</div>
-        <div class="doodle-star" style="top:45px;right:80px;animation-delay:.5s">✧</div>
-
-        <p class="sec-label fu">Sticky Note Board</p>
-        <h2 class="sec-title fu1"><span class="scribble">Projects</span></h2>
-        <p style="font-family:'Caveat',cursive;color:var(--inkl);margin-bottom:16px;font-size:.88rem" class="fu2">✦ Click a sticky note to read the full case study ✦</p>
-
-        <div class="sticky-board">
-          <div class="sticky fu1" onclick="openModal('m1')">
-            <div class="sticky-emoji">🎯</div>
-            <div class="sticky-title">AI Career Prediction</div>
-            <div class="sticky-desc">ML/DL predicting career paths from academics, skills & interests.</div>
-            <div class="sticky-stack"><span class="stack-chip">TensorFlow</span><span class="stack-chip">Streamlit</span></div>
-          </div>
-          <div class="sticky fu2" onclick="openModal('m2')">
-            <div class="sticky-emoji">🏛️</div>
-            <div class="sticky-title">Agentic Gov. Platform</div>
-            <div class="sticky-desc">AI automation for permits, licenses & citizen apps end-to-end.</div>
-            <div class="sticky-stack"><span class="stack-chip">FastAPI</span><span class="stack-chip">JWT</span></div>
-          </div>
-          <div class="sticky fu3" onclick="openModal('m3')">
-            <div class="sticky-emoji">🏙️</div>
-            <div class="sticky-title">Urban Risk Prediction</div>
-            <div class="sticky-desc">ML model for high-risk zones prone to displacement.</div>
-            <div class="sticky-stack"><span class="stack-chip">Scikit-learn</span><span class="stack-chip">Pandas</span></div>
-          </div>
-          <div class="sticky fu4" onclick="openModal('m4')">
-            <div class="sticky-emoji">🧩</div>
-            <div class="sticky-title">ASD Detection App</div>
-            <div class="sticky-desc">Flask KNN web app for autism detection with dashboards.</div>
-            <div class="sticky-stack"><span class="stack-chip">Flask</span><span class="stack-chip">MySQL</span></div>
-          </div>
-          <div class="sticky fu5" onclick="openModal('m5')">
-            <div class="sticky-emoji">🛡️</div>
-            <div class="sticky-title">SafeGate AI</div>
-            <div class="sticky-desc">Real-time OS-level content safety system blocking threats on Windows.</div>
-            <div class="sticky-stack"><span class="stack-chip">Python</span><span class="stack-chip">AI Pipeline</span></div>
-          </div>
-          <div class="sticky fu5" onclick="openModal('m6')">
-            <div class="sticky-emoji">🎙️</div>
-            <div class="sticky-title">Voice Translator</div>
-            <div class="sticky-desc">Real-time English ↔ Spanish using speech & TTS.</div>
-            <div class="sticky-stack"><span class="stack-chip">SpeechRec</span><span class="stack-chip">TTS</span></div>
+      <!-- CUSTOMIZATION: Update values and labels as needed -->
+      <div class="metric-card" role="listitem">
+        <div class="metric-card__icon">🔥</div>
+        <div class="metric-card__info">
+          <div class="metric-card__label">CURIOSITY_SCORE</div>
+          <div class="metric-card__value">99.1%</div>
+        </div>
+        <div class="metric-card__bar">
+          <div class="progress-track">
+            <div class="progress-fill" data-progress="99"></div>
           </div>
         </div>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 3</div>
-      <div class="page-date">Projects ✦</div>
-    </div>
 
-    <!-- PAGE 3: SKILLS -->
-    <div class="page" data-idx="3" id="page-3">
-      <div class="page-inner scrollable">
-        <div class="washi w-top"></div>
-        <div class="flower-deco f1">🌷</div>
-        <div class="doodle-star" style="bottom:60px;right:50px;animation-delay:1.2s">✦</div>
-        <div class="paperclip">📎</div>
-
-        <p class="sec-label fu">Desk Accessories</p>
-        <h2 class="sec-title fu1"><span class="scribble">Skills</span></h2>
-
-        <div class="skills-grid">
-          <div class="skill-item fu1"><div class="skill-icon">📓</div><div class="skill-name">Python</div><div class="skill-type">Primary Language</div></div>
-          <div class="skill-item fu1"><div class="skill-icon">💡</div><div class="skill-name">TensorFlow</div><div class="skill-type">Deep Learning</div></div>
-          <div class="skill-item fu2"><div class="skill-icon">🔬</div><div class="skill-name">Scikit-learn</div><div class="skill-type">ML Framework</div></div>
-          <div class="skill-item fu2"><div class="skill-icon">🔖</div><div class="skill-name">Git & GitHub</div><div class="skill-type">Version Control</div></div>
-          <div class="skill-item fu3"><div class="skill-icon">🗄️</div><div class="skill-name">MySQL / SQL</div><div class="skill-type">Database</div></div>
-          <div class="skill-item fu3"><div class="skill-icon">🌐</div><div class="skill-name">Flask / FastAPI</div><div class="skill-type">Backend APIs</div></div>
-          <div class="skill-item fu4"><div class="skill-icon">📊</div><div class="skill-name">Streamlit</div><div class="skill-type">Data Apps</div></div>
-          <div class="skill-item fu4"><div class="skill-icon">🤗</div><div class="skill-name">HuggingFace</div><div class="skill-type">NLP / BERT</div></div>
-          <div class="skill-item fu5"><div class="skill-icon">☁️</div><div class="skill-name">Google Cloud</div><div class="skill-type">Vertex AI, Gemini</div></div>
-          <div class="skill-item fu5"><div class="skill-icon">🧠</div><div class="skill-name">RNN/LSTM/GRU</div><div class="skill-type">Sequence Models</div></div>
-          <div class="skill-item fu5"><div class="skill-icon">🎨</div><div class="skill-name">GANs / VAE</div><div class="skill-type">Generative AI</div></div>
-          <div class="skill-item fu5"><div class="skill-icon">📈</div><div class="skill-name">Power BI</div><div class="skill-type">Visualization</div></div>
+      <div class="metric-card" role="listitem">
+        <div class="metric-card__icon">📈</div>
+        <div class="metric-card__info">
+          <div class="metric-card__label">RESEARCH_MOMENTUM</div>
+          <div class="metric-card__value">High ↑</div>
+        </div>
+        <div class="metric-card__bar">
+          <div class="progress-track">
+            <div class="progress-fill" data-progress="85"></div>
+          </div>
         </div>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 4</div>
-      <div class="page-date">Skills ✦</div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-card__icon">⚡</div>
+        <div class="metric-card__info">
+          <div class="metric-card__label">LEARNING_RATE</div>
+          <div class="metric-card__value">α = 0.032</div>
+        </div>
+        <div class="metric-card__bar">
+          <div class="progress-track">
+            <div class="progress-fill" data-progress="90"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-card__icon">🌍</div>
+        <div class="metric-card__info">
+          <div class="metric-card__label">OPEN_SOURCE_ACTIVITY</div>
+          <div class="metric-card__value">Active 🟢</div>
+        </div>
+        <div class="metric-card__bar">
+          <div class="progress-track">
+            <div class="progress-fill" data-progress="70"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-card__icon">🎯</div>
+        <div class="metric-card__info">
+          <div class="metric-card__label">OVERFITTING_RISK</div>
+          <div class="metric-card__value">LOW ✓</div>
+        </div>
+        <div class="metric-card__bar">
+          <div class="progress-track">
+            <div class="progress-fill" data-progress="12"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DATASET SECTION — About Me
+════════════════════════════════════════════════════════════ -->
+<section id="dataset" class="section section--alt" aria-labelledby="dataset-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">01 // training_dataset</div>
+      <h2 class="section-header__title" id="dataset-title">Training Dataset</h2>
+      <p class="section-header__subtitle">model.metadata — the data that shaped this AI engineer</p>
     </div>
 
-    <!-- PAGE 4: EXPERIENCE -->
-    <div class="page" data-idx="4" id="page-4">
-      <div class="page-inner scrollable">
-        <div class="washi w-top2"></div>
-        <div class="flower-deco f1">🌺</div>
-        <div class="doodle-heart" style="bottom:60px;right:55px;animation-delay:.8s">♡</div>
-
-        <p class="sec-label fu">Work Diary</p>
-        <h2 class="sec-title fu1"><span class="scribble">Experience</span></h2>
-
-        <div class="timeline">
-          <div class="tl-item fu1">
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-              <div class="tl-company">Infosys Springboard</div>
-              <div class="tl-role">AI Intern</div>
-              <div class="tl-date">📅 Oct–Dec 2025 · Remote</div>
-              <ul>
-                <li>ML workflows: preprocessing, feature selection, model evaluation</li>
-                <li>Built AI mini-projects using Python, Pandas, NumPy, Scikit-learn</li>
-                <li>Data analysis & visualization on structured datasets</li>
-              </ul>
-            </div>
+    <div class="dataset__grid">
+      <!-- Profile Card -->
+      <div class="reveal reveal--left">
+        <div class="dataset__profile-card">
+          <div class="profile-card__header"></div>
+          <div class="profile-card__avatar-wrap">
+            <div class="profile-card__avatar" aria-label="Padmaja Kachare avatar">👩‍💻</div>
           </div>
-          <div class="tl-item fu2">
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-              <div class="tl-company">IM1B — Innovation Mission 1B</div>
-              <div class="tl-role">AI & Data Science Intern</div>
-              <div class="tl-date">📅 2025 · Remote</div>
-              <ul>
-                <li>AI-driven solutions for social & technological challenges</li>
-                <li>Designed scalable AI solutions for global-impact problems</li>
-              </ul>
-            </div>
-          </div>
-          <div class="tl-item fu3">
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-              <div class="tl-company">NullClass</div>
-              <div class="tl-role">Data Science Intern</div>
-              <div class="tl-date">📅 Apr–Jun 2025 · Remote</div>
-              <ul>
-                <li>Built Tokenizer, Image-to-Text Translator, Dual-Language Translator</li>
-                <li>Real-Time Voice Translation: English ↔ Spanish</li>
-              </ul>
-            </div>
-          </div>
-          <div class="tl-item fu4">
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-              <div class="tl-company">Prodigy Infotech</div>
-              <div class="tl-role">Data Science Intern</div>
-              <div class="tl-date">📅 Sep 2024 · Remote</div>
-              <ul>
-                <li>Titanic dataset; Decision Tree for purchase prediction</li>
-                <li>Sentiment analysis with NLTK; hotspot viz with Folium</li>
-              </ul>
-            </div>
-          </div>
-          <div class="tl-item fu5">
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-              <div class="tl-company">SmartInternz</div>
-              <div class="tl-role">AI/ML Intern</div>
-              <div class="tl-date">📅 Jun–Jul 2024 · Remote</div>
-              <ul>
-                <li>KNN model for ASD detection</li>
-                <li>Google Cloud tools: Vertex AI, Gemini & prompt engineering</li>
-              </ul>
+          <div class="profile-card__body">
+            <h3 class="profile-card__name">Padmaja Kachare</h3>
+            <div class="profile-card__role">AI & ML Engineer in Training</div>
+            <div class="profile-card__status">Available for Opportunities</div>
+            <div class="profile-card__stats">
+              <div class="profile-stat">
+                <div class="profile-stat__value">5+</div>
+                <div class="profile-stat__label">Internships</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat__value">6+</div>
+                <div class="profile-stat__label">Projects</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat__value">90%</div>
+                <div class="profile-stat__label">Diploma</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 5</div>
-      <div class="page-date">Experience ✦</div>
+
+      <!-- Metadata Panel -->
+      <div class="dataset__meta reveal reveal--right">
+        <!-- SECTION: Core Identity -->
+        <div>
+          <div class="dataset__schema-title">core_identity</div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">👤</span> name</span>
+            <span class="meta-value meta-value--accent">Padmaja Suresh Kachare</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">🎯</span> domain</span>
+            <span class="meta-value">AI & Data Science Engineering</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">📍</span> location</span>
+            <span class="meta-value">Uran, Navi Mumbai – 400702, India</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">📧</span> email</span>
+            <span class="meta-value meta-value--accent">padmajakachare1911@gmail.com</span>
+          </div>
+        </div>
+
+        <!-- SECTION: Objective -->
+        <div>
+          <div class="dataset__schema-title">objective_function</div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">🎯</span> mission</span>
+            <span class="meta-value">Motivated B.Tech AI & Data Science student with hands-on experience in ML, DL, NLP, and full-stack AI development. Passionate about leveraging AI for real-world impact and exploring scalable data systems and agentic AI.</span>
+          </div>
+        </div>
+
+        <!-- SECTION: Interests -->
+        <div>
+          <div class="dataset__schema-title">feature_interests</div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">💡</span> AI focus</span>
+            <div class="meta-value">
+              <div class="tag-list">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">NLP</span>
+                <span class="tag">Agentic AI</span>
+                <span class="tag">Generative AI</span>
+                <span class="tag">MLOps</span>
+              </div>
+            </div>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key"><span class="key-icon">🎨</span> hobbies</span>
+            <span class="meta-value">Doodling · Creative Art · Building AI projects</span>
+          </div>
+        </div>
+
+        <!-- SECTION: Internship History -->
+        <div>
+          <div class="dataset__schema-title">training_runs (internships)</div>
+          <div class="internship-list">
+            <div class="internship-item">
+              <div class="internship-dot"></div>
+              <div class="internship-info">
+                <div class="internship-company">Infosys Springboard</div>
+                <div class="internship-role">Artificial Intelligence Intern</div>
+              </div>
+              <div class="internship-period">Oct–Dec 2025</div>
+            </div>
+            <div class="internship-item">
+              <div class="internship-dot"></div>
+              <div class="internship-info">
+                <div class="internship-company">IM1B (Innovation Mission 1 Billion)</div>
+                <div class="internship-role">AI & Data Science Intern</div>
+              </div>
+              <div class="internship-period">2025</div>
+            </div>
+            <div class="internship-item">
+              <div class="internship-dot"></div>
+              <div class="internship-info">
+                <div class="internship-company">NullClass</div>
+                <div class="internship-role">Data Science Intern</div>
+              </div>
+              <div class="internship-period">Apr–Jun 2025</div>
+            </div>
+            <div class="internship-item">
+              <div class="internship-dot"></div>
+              <div class="internship-info">
+                <div class="internship-company">Prodigy Infotech</div>
+                <div class="internship-role">Data Science Intern</div>
+              </div>
+              <div class="internship-period">Sep 2024</div>
+            </div>
+            <div class="internship-item">
+              <div class="internship-dot"></div>
+              <div class="internship-info">
+                <div class="internship-company">SmartInternz</div>
+                <div class="internship-role">AI/ML Intern</div>
+              </div>
+              <div class="internship-period">Jun–Jul 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURES SECTION — Skills
+════════════════════════════════════════════════════════════ -->
+<section id="features" class="section" aria-labelledby="features-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">02 // feature_engineering</div>
+      <h2 class="section-header__title" id="features-title">Feature Engineering</h2>
+      <p class="section-header__subtitle">Skill importance scores computed from real project experience</p>
     </div>
 
-    <!-- PAGE 5: LEARNING -->
-    <div class="page" data-idx="5" id="page-5">
-      <div class="page-inner">
-        <div class="washi w-top"></div>
-        <div class="flower-deco f1">🌸</div>
-        <div class="doodle-star" style="top:50px;right:70px;animation-delay:.3s">✧</div>
-        <div class="doodle-star" style="bottom:90px;left:55px;animation-delay:1.5s">✦</div>
+    <!-- Category Filter Tabs -->
+    <div class="features__tabs reveal">
+      <button class="features__tab active" data-filter="all">All Features</button>
+      <button class="features__tab" data-filter="programming">Programming</button>
+      <button class="features__tab" data-filter="ml">ML / DL</button>
+      <button class="features__tab" data-filter="frameworks">Frameworks</button>
+      <button class="features__tab" data-filter="cloud">Cloud & Tools</button>
+    </div>
 
-        <p class="sec-label fu">Coffee Mug Station</p>
-        <h2 class="sec-title fu1"><span class="scribble">Currently Learning</span></h2>
+    <!-- Skills Grid -->
+    <div class="features__grid stagger">
+      <!-- CUSTOMIZATION: Add/remove skill cards as needed -->
 
-        <div class="learning-wrap">
-          <div class="learn-items fu2">
-            <div class="learn-row">
-              <span class="learn-label">☕ Agentic AI Systems</span>
-              <div class="learn-bar-wrap"><div class="learn-bar" style="width:75%;animation-delay:.1s"></div></div>
+      <div class="skill-card reveal" data-category="programming">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🐍</div>
+            <div>
+              <div class="skill-card__name">Python</div>
+              <div class="skill-card__category">Programming</div>
             </div>
-            <div class="learn-row">
-              <span class="learn-label">☕ Scalable Data Pipelines</span>
-              <div class="learn-bar-wrap"><div class="learn-bar" style="width:60%;animation-delay:.2s"></div></div>
-            </div>
-            <div class="learn-row">
-              <span class="learn-label">☕ LLM Fine-tuning</span>
-              <div class="learn-bar-wrap"><div class="learn-bar" style="width:50%;animation-delay:.3s"></div></div>
-            </div>
-            <div class="learn-row">
-              <span class="learn-label">☕ Cloud Architecture</span>
-              <div class="learn-bar-wrap"><div class="learn-bar" style="width:45%;animation-delay:.4s"></div></div>
-            </div>
-            <div class="learn-row">
-              <span class="learn-label">☕ GitHub Copilot</span>
-              <div class="learn-bar-wrap"><div class="learn-bar" style="width:70%;animation-delay:.5s"></div></div>
-            </div>
-            <p style="font-family:'Caveat',cursive;color:var(--inkl);margin-top:12px;font-size:.9rem">✦ Always one more cup to go ✦</p>
           </div>
-          <!-- MUG -->
-          <div style="display:flex;justify-content:center" class="fu3">
-            <svg width="130" height="165" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M55 30 Q60 15 55 5" stroke="#e8a4bc" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7">
-                <animate attributeName="opacity" values=".7;.2;.7" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="d" values="M55 30 Q60 15 55 5;M55 30 Q50 15 55 5;M55 30 Q60 15 55 5" dur="2s" repeatCount="indefinite"/>
-              </path>
-              <path d="M75 28 Q80 10 75 2" stroke="#e8a4bc" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5">
-                <animate attributeName="opacity" values=".5;.9;.5" dur="2.4s" repeatCount="indefinite"/>
-              </path>
-              <path d="M95 30 Q100 14 95 4" stroke="#e8a4bc" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6">
-                <animate attributeName="opacity" values=".6;.1;.6" dur="1.8s" repeatCount="indefinite"/>
-              </path>
-              <path d="M20 45 L30 175 Q30 185 40 185 L120 185 Q130 185 130 175 L140 45 Z" fill="#fce4ec"/>
-              <clipPath id="mc"><path d="M22 47 L31 173 Q31 183 40 183 L120 183 Q129 183 129 173 L138 47 Z"/></clipPath>
-              <rect x="20" y="100" width="120" height="90" fill="#f48fb1" opacity=".6" clip-path="url(#mc)">
-                <animate attributeName="y" from="180" to="100" dur="1.5s" fill="freeze" begin=".5s"/>
-              </rect>
-              <ellipse cx="80" cy="45" rx="60" ry="12" fill="#f8bbd0"/>
-              <path d="M130 80 Q165 80 165 115 Q165 150 130 150" stroke="#f48fb1" stroke-width="12" fill="none" stroke-linecap="round"/>
-              <text x="80" y="155" text-anchor="middle" font-family="'Caveat', cursive" font-size="13" fill="#e91e8c" opacity=".6">keep learning</text>
+          <div class="skill-card__score">95</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">PRIMARY LANG</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="95"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">All 6 projects</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Experience</span><span class="tooltip-value">3+ years</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Expert</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="ml">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🧠</div>
+            <div>
+              <div class="skill-card__name">Machine Learning</div>
+              <div class="skill-card__category">ML / DL</div>
+            </div>
+          </div>
+          <div class="skill-card__score">90</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">CORE SKILL</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="90"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">Career Pred, ASD, Urban Risk</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Algorithms</span><span class="tooltip-value">KNN, Decision Trees, RF</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Advanced</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="ml">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🔮</div>
+            <div>
+              <div class="skill-card__name">Deep Learning</div>
+              <div class="skill-card__category">ML / DL</div>
+            </div>
+          </div>
+          <div class="skill-card__score">88</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">ADVANCED</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="88"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Architectures</span><span class="tooltip-value">RNN, LSTM, GRU, GANs, VAE</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">AI Career Pred, Research</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Advanced</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="frameworks">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🔥</div>
+            <div>
+              <div class="skill-card__name">TensorFlow / Keras</div>
+              <div class="skill-card__category">Frameworks</div>
+            </div>
+          </div>
+          <div class="skill-card__score">87</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">PRIMARY DL</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="87"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">AI Career Prediction System</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Experience</span><span class="tooltip-value">2+ years</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Advanced</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="ml">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">📝</div>
+            <div>
+              <div class="skill-card__name">NLP</div>
+              <div class="skill-card__category">ML / DL</div>
+            </div>
+          </div>
+          <div class="skill-card__score">85</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">BERT · NLTK</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="85"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">Translator, Tokenizer, Lost Recipes</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Models</span><span class="tooltip-value">BERT, Hugging Face</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Advanced</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="frameworks">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">⚡</div>
+            <div>
+              <div class="skill-card__name">FastAPI / Flask</div>
+              <div class="skill-card__category">Frameworks</div>
+            </div>
+          </div>
+          <div class="skill-card__score">83</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">BACKEND</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="83"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">Agentic Gov Platform, ASD App</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">APIs</span><span class="tooltip-value">REST, JWT, SQLAlchemy</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Proficient</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="frameworks">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🌊</div>
+            <div>
+              <div class="skill-card__name">Streamlit</div>
+              <div class="skill-card__category">Frameworks</div>
+            </div>
+          </div>
+          <div class="skill-card__score">90</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">UI DEPLOY</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="90"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">Career Pred, Lost Recipes</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Experience</span><span class="tooltip-value">2+ years</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Expert</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="programming">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🗃️</div>
+            <div>
+              <div class="skill-card__name">SQL / MySQL</div>
+              <div class="skill-card__category">Programming</div>
+            </div>
+          </div>
+          <div class="skill-card__score">80</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">DATABASE</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="80"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Projects</span><span class="tooltip-value">Agentic Gov Platform, ASD App</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Tools</span><span class="tooltip-value">MySQL, XAMPP, SQLAlchemy</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Proficient</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="cloud">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">☁️</div>
+            <div>
+              <div class="skill-card__name">Google Cloud / Vertex AI</div>
+              <div class="skill-card__category">Cloud & Tools</div>
+            </div>
+          </div>
+          <div class="skill-card__score">75</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">CLOUD ML</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="75"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Platforms</span><span class="tooltip-value">Vertex AI, Gemini API</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Certification</span><span class="tooltip-value">Gemini + Streamlit (Google)</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Intermediate</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="cloud">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🐙</div>
+            <div>
+              <div class="skill-card__name">Git / GitHub</div>
+              <div class="skill-card__category">Cloud & Tools</div>
+            </div>
+          </div>
+          <div class="skill-card__score">82</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">VERSION CTRL</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="82"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Profile</span><span class="tooltip-value">github.com/Padmajakachare1911</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Cert</span><span class="tooltip-value">GitHub Copilot (Microsoft)</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Proficient</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="ml">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🤗</div>
+            <div>
+              <div class="skill-card__name">Hugging Face / BERT</div>
+              <div class="skill-card__category">ML / DL</div>
+            </div>
+          </div>
+          <div class="skill-card__score">78</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">TRANSFORMERS</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="78"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Models</span><span class="tooltip-value">BERT, Text Classification</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Tasks</span><span class="tooltip-value">NLP, Summarization, Sentiment</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Intermediate</span></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal" data-category="ml">
+        <div class="skill-card__header">
+          <div class="skill-card__left">
+            <div class="skill-card__icon">🤖</div>
+            <div>
+              <div class="skill-card__name">Generative AI / Prompt Eng</div>
+              <div class="skill-card__category">ML / DL</div>
+            </div>
+          </div>
+          <div class="skill-card__score">80</div>
+        </div>
+        <div class="skill-card__bar">
+          <div class="skill-card__bar-label">
+            <span class="bar-label-left">IMPORTANCE</span>
+            <span class="bar-label-right">EMERGING</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" data-progress="80"></div></div>
+        </div>
+        <div class="skill-card__tooltip">
+          <div class="tooltip-row"><span class="tooltip-key">Tools</span><span class="tooltip-value">Gemini, Vertex AI, GANs, VAE</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Cert</span><span class="tooltip-value">Prompt Design in Vertex AI</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Confidence</span><span class="tooltip-value">Proficient</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     TRAINING SECTION — Education Timeline
+════════════════════════════════════════════════════════════ -->
+<section id="training" class="section section--alt" aria-labelledby="training-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">03 // training_epochs</div>
+      <h2 class="section-header__title" id="training-title">Training Epochs</h2>
+      <p class="section-header__subtitle">Each epoch — a milestone in the journey of becoming an AI engineer</p>
+    </div>
+
+    <div class="timeline">
+      <!-- EPOCH 1 -->
+      <div class="epoch reveal">
+        <div class="epoch__card">
+          <div class="epoch__card-header">
+            <span class="epoch__card-icon">🏫</span>
+            <div class="epoch__card-meta">
+              <div class="epoch__year">2020</div>
+              <h3 class="epoch__title">SSC — Foundation Complete</h3>
+              <div class="epoch__institution">St. Mary's Convent High School, Uran</div>
+            </div>
+            <div class="epoch__toggle">▼</div>
+          </div>
+          <div class="epoch__card-body">
+            <div class="epoch__card-body-inner">
+              <p class="epoch__description">Completed 10th standard with strong academic performance, building the analytical and problem-solving foundation that would later power AI & ML learning.</p>
+              <div class="epoch__skills">
+                <span class="epoch__skill-chip">Mathematics</span>
+                <span class="epoch__skill-chip">Science</span>
+                <span class="epoch__skill-chip">Analytical Thinking</span>
+              </div>
+              <div class="epoch__grade">
+                <span class="epoch__grade-label">Score</span>
+                <span class="epoch__grade-value">91% 🏆</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="epoch__node">
+          <div class="epoch__dot">E1</div>
+          <div class="epoch__number-label">Epoch 1</div>
+        </div>
+        <div class="epoch__spacer"></div>
+      </div>
+
+      <!-- EPOCH 2 -->
+      <div class="epoch reveal">
+        <div class="epoch__spacer"></div>
+        <div class="epoch__node">
+          <div class="epoch__dot">E2</div>
+          <div class="epoch__number-label">Epoch 2</div>
+        </div>
+        <div class="epoch__card">
+          <div class="epoch__card-header">
+            <span class="epoch__card-icon">📚</span>
+            <div class="epoch__card-meta">
+              <div class="epoch__year">2022</div>
+              <h3 class="epoch__title">HSC — Science Stream</h3>
+              <div class="epoch__institution">St. Mary's Convent Jr. College, Uran</div>
+            </div>
+            <div class="epoch__toggle">▼</div>
+          </div>
+          <div class="epoch__card-body">
+            <div class="epoch__card-body-inner">
+              <p class="epoch__description">Pursued Science stream (PCM) in 12th standard, developing deep mathematical intuition — the backbone of all ML algorithms and statistical models.</p>
+              <div class="epoch__skills">
+                <span class="epoch__skill-chip">Physics</span>
+                <span class="epoch__skill-chip">Chemistry</span>
+                <span class="epoch__skill-chip">Mathematics</span>
+              </div>
+              <div class="epoch__grade">
+                <span class="epoch__grade-label">Score</span>
+                <span class="epoch__grade-value">82.50% ✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EPOCH 3 -->
+      <div class="epoch reveal">
+        <div class="epoch__card">
+          <div class="epoch__card-header">
+            <span class="epoch__card-icon">🎓</span>
+            <div class="epoch__card-meta">
+              <div class="epoch__year">2022 – 2025</div>
+              <h3 class="epoch__title">Diploma in AI & ML Engineering</h3>
+              <div class="epoch__institution">Government Polytechnic, Mumbai</div>
+            </div>
+            <div class="epoch__toggle">▼</div>
+          </div>
+          <div class="epoch__card-body">
+            <div class="epoch__card-body-inner">
+              <p class="epoch__description">Intensive 3-year program in AI & Machine Learning Engineering. Built foundational to advanced skills in Python, ML algorithms, data analysis, and AI applications through guided projects and lab work.</p>
+              <div class="epoch__skills">
+                <span class="epoch__skill-chip">Python</span>
+                <span class="epoch__skill-chip">Machine Learning</span>
+                <span class="epoch__skill-chip">Data Structures</span>
+                <span class="epoch__skill-chip">Database Systems</span>
+                <span class="epoch__skill-chip">AI Applications</span>
+              </div>
+              <div class="epoch__grade">
+                <span class="epoch__grade-label">Score</span>
+                <span class="epoch__grade-value">90% 🏆</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="epoch__node">
+          <div class="epoch__dot">E3</div>
+          <div class="epoch__number-label">Epoch 3</div>
+        </div>
+        <div class="epoch__spacer"></div>
+      </div>
+
+      <!-- EPOCH 4 -->
+      <div class="epoch reveal">
+        <div class="epoch__spacer"></div>
+        <div class="epoch__node">
+          <div class="epoch__dot">E4</div>
+          <div class="epoch__number-label">Epoch 4</div>
+        </div>
+        <div class="epoch__card">
+          <div class="epoch__card-header">
+            <span class="epoch__card-icon">🏛️</span>
+            <div class="epoch__card-meta">
+              <div class="epoch__year">2023 – Present</div>
+              <h3 class="epoch__title">B.Tech — AI & Data Science</h3>
+              <div class="epoch__institution">SIES School of Graduate Technology, Nerul</div>
+            </div>
+            <div class="epoch__toggle">▼</div>
+          </div>
+          <div class="epoch__card-body">
+            <div class="epoch__card-body-inner">
+              <p class="epoch__description">Currently pursuing B.Tech in Artificial Intelligence & Data Science Engineering. Developing expertise in advanced ML/DL, data engineering pipelines, cloud AI, and building end-to-end AI solutions that bridge research and deployment.</p>
+              <div class="epoch__skills">
+                <span class="epoch__skill-chip">Deep Learning</span>
+                <span class="epoch__skill-chip">NLP</span>
+                <span class="epoch__skill-chip">Data Engineering</span>
+                <span class="epoch__skill-chip">Cloud AI</span>
+                <span class="epoch__skill-chip">Agentic AI</span>
+                <span class="epoch__skill-chip">MLOps</span>
+              </div>
+              <div class="epoch__grade">
+                <span class="epoch__grade-label">Status</span>
+                <span class="epoch__grade-value">Ongoing 🔄</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EPOCH 5: Internships -->
+      <div class="epoch reveal">
+        <div class="epoch__card">
+          <div class="epoch__card-header">
+            <span class="epoch__card-icon">💼</span>
+            <div class="epoch__card-meta">
+              <div class="epoch__year">2024 – 2025</div>
+              <h3 class="epoch__title">Industry Training Runs</h3>
+              <div class="epoch__institution">5 Internships Across AI/ML Companies</div>
+            </div>
+            <div class="epoch__toggle">▼</div>
+          </div>
+          <div class="epoch__card-body">
+            <div class="epoch__card-body-inner">
+              <p class="epoch__description">Completed 5 AI/ML internships spanning Infosys Springboard, IM1B, NullClass, Prodigy Infotech, and SmartInternz. Gained hands-on experience in real-world ML workflows, data pipelines, AI applications, and industry-standard tools.</p>
+              <div class="epoch__skills">
+                <span class="epoch__skill-chip">Real-world ML</span>
+                <span class="epoch__skill-chip">Scikit-learn</span>
+                <span class="epoch__skill-chip">Pandas / NumPy</span>
+                <span class="epoch__skill-chip">Data Visualization</span>
+                <span class="epoch__skill-chip">Gemini API</span>
+              </div>
+              <div class="epoch__grade">
+                <span class="epoch__grade-label">Internships</span>
+                <span class="epoch__grade-value">5 Completed ✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="epoch__node">
+          <div class="epoch__dot">E5</div>
+          <div class="epoch__number-label">Epoch 5</div>
+        </div>
+        <div class="epoch__spacer"></div>
+      </div>
+
+      <!-- EPOCH 6 -->
+      <div class="epoch reveal">
+        <div class="epoch__spacer"></div>
+        <div class="epoch__node">
+          <div class="epoch__dot">E6</div>
+          <div class="epoch__number-label">Epoch 6</div>
+        </div>
+        <div class="epoch__card">
+          <div class="epoch__card-header">
+            <span class="epoch__card-icon">🚀</span>
+            <div class="epoch__card-meta">
+              <div class="epoch__year">Now</div>
+              <h3 class="epoch__title">AI Projects & Open Source</h3>
+              <div class="epoch__institution">Building Real-World AI Solutions</div>
+            </div>
+            <div class="epoch__toggle">▼</div>
+          </div>
+          <div class="epoch__card-body">
+            <div class="epoch__card-body-inner">
+              <p class="epoch__description">Actively building AI projects from zero-to-production: from data preprocessing to deployment via Streamlit and Flask. Exploring Agentic AI, RAG systems, LangGraph, and MLOps while contributing to open source communities.</p>
+              <div class="epoch__skills">
+                <span class="epoch__skill-chip">RAG</span>
+                <span class="epoch__skill-chip">LangGraph</span>
+                <span class="epoch__skill-chip">Fine-tuning</span>
+                <span class="epoch__skill-chip">MLOps</span>
+                <span class="epoch__skill-chip">AI Agents</span>
+              </div>
+              <div class="epoch__grade">
+                <span class="epoch__grade-label">Status</span>
+                <span class="epoch__grade-value">Active 🟢</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     EXPERIMENTS SECTION — Projects
+════════════════════════════════════════════════════════════ -->
+<section id="experiments" class="section" aria-labelledby="experiments-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">04 // experiments</div>
+      <h2 class="section-header__title" id="experiments-title">Experiments & Model Deployments</h2>
+      <p class="section-header__subtitle">Each project is a controlled experiment — hypothesis, data, model, result</p>
+    </div>
+
+    <div class="experiments__grid">
+
+      <!-- PROJECT 1: AI Career Prediction -->
+      <article class="experiment-card reveal" data-modal="modal-career" aria-label="AI Career Prediction project">
+        <div class="experiment-card__header">
+          <div class="experiment-card__icon" style="background:rgba(139,92,246,0.12)">🎯</div>
+          <div class="experiment-card__id">
+            <span class="experiment-card__status-dot"></span>
+            EXP-001 · DEPLOYED
+          </div>
+        </div>
+        <div class="experiment-card__body">
+          <h3 class="experiment-card__title">AI Career Prediction & Guidance System</h3>
+          <p class="experiment-card__problem">An AI-driven platform predicting suitable career paths based on academic performance, skills, and interests using TensorFlow ML/DL models with integrated skill gap analysis.</p>
+          <div class="experiment-card__stack">
+            <span class="stack-chip">Python</span>
+            <span class="stack-chip">TensorFlow</span>
+            <span class="stack-chip">Streamlit</span>
+            <span class="stack-chip">Scikit-learn</span>
+          </div>
+        </div>
+        <div class="experiment-card__footer">
+          <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="btn btn--outline btn--sm" onclick="event.stopPropagation(); openProjectModal('modal-career')">📐 Architecture</button>
+        </div>
+      </article>
+
+      <!-- PROJECT 2: Agentic AI Platform -->
+      <article class="experiment-card reveal" data-modal="modal-gov" aria-label="Agentic AI Government platform project">
+        <div class="experiment-card__header">
+          <div class="experiment-card__icon" style="background:rgba(59,130,246,0.12)">🏛️</div>
+          <div class="experiment-card__id">
+            <span class="experiment-card__status-dot"></span>
+            EXP-002 · ADVANCED
+          </div>
+        </div>
+        <div class="experiment-card__body">
+          <h3 class="experiment-card__title">Agentic AI Government Service Platform</h3>
+          <p class="experiment-card__problem">AI automation system for processing government service requests (permits, licenses, applications) with DigiLocker API integration and JWT authentication.</p>
+          <div class="experiment-card__stack">
+            <span class="stack-chip">FastAPI</span>
+            <span class="stack-chip">SQLAlchemy</span>
+            <span class="stack-chip">MySQL</span>
+            <span class="stack-chip">JWT</span>
+            <span class="stack-chip">HTML/CSS/JS</span>
+          </div>
+        </div>
+        <div class="experiment-card__footer">
+          <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="btn btn--outline btn--sm" onclick="event.stopPropagation(); openProjectModal('modal-gov')">📐 Architecture</button>
+        </div>
+      </article>
+
+      <!-- PROJECT 3: Urban Risk -->
+      <article class="experiment-card reveal" data-modal="modal-urban" aria-label="Urban Risk prediction project">
+        <div class="experiment-card__header">
+          <div class="experiment-card__icon" style="background:rgba(245,158,11,0.12)">🏙️</div>
+          <div class="experiment-card__id">
+            <span class="experiment-card__status-dot"></span>
+            EXP-003 · RESEARCH
+          </div>
+        </div>
+        <div class="experiment-card__body">
+          <h3 class="experiment-card__title">Urban Risk & Slum Eviction Prediction</h3>
+          <p class="experiment-card__problem">ML model to identify high-risk urban zones prone to displacement using socioeconomic, demographic, and infrastructure datasets with interactive spatial visualization.</p>
+          <div class="experiment-card__stack">
+            <span class="stack-chip">Python</span>
+            <span class="stack-chip">Scikit-learn</span>
+            <span class="stack-chip">Pandas</span>
+            <span class="stack-chip">Folium</span>
+          </div>
+        </div>
+        <div class="experiment-card__footer">
+          <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="btn btn--outline btn--sm" onclick="event.stopPropagation(); openProjectModal('modal-urban')">📐 Architecture</button>
+        </div>
+      </article>
+
+      <!-- PROJECT 4: ASD Detection -->
+      <article class="experiment-card reveal" data-modal="modal-asd" aria-label="ASD Detection web app project">
+        <div class="experiment-card__header">
+          <div class="experiment-card__icon" style="background:rgba(16,185,129,0.12)">🧩</div>
+          <div class="experiment-card__id">
+            <span class="experiment-card__status-dot"></span>
+            EXP-004 · DEPLOYED
+          </div>
+        </div>
+        <div class="experiment-card__body">
+          <h3 class="experiment-card__title">ASD Detection Web App</h3>
+          <p class="experiment-card__problem">Flask-based KNN web application for Autism Spectrum Disorder detection with MySQL integration, secure login system, and visual result dashboards.</p>
+          <div class="experiment-card__stack">
+            <span class="stack-chip">Flask</span>
+            <span class="stack-chip">KNN</span>
+            <span class="stack-chip">MySQL</span>
+            <span class="stack-chip">Python</span>
+          </div>
+        </div>
+        <div class="experiment-card__footer">
+          <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="btn btn--outline btn--sm" onclick="event.stopPropagation(); openProjectModal('modal-asd')">📐 Architecture</button>
+        </div>
+      </article>
+
+      <!-- PROJECT 5: Lost Recipes -->
+      <article class="experiment-card reveal" data-modal="modal-recipes" aria-label="Lost Recipes Finder project">
+        <div class="experiment-card__header">
+          <div class="experiment-card__icon" style="background:rgba(239,68,68,0.12)">🍛</div>
+          <div class="experiment-card__id">
+            <span class="experiment-card__status-dot"></span>
+            EXP-005 · LIVE
+          </div>
+        </div>
+        <div class="experiment-card__body">
+          <h3 class="experiment-card__title">Lost Recipes Finder</h3>
+          <p class="experiment-card__problem">Streamlit app to discover region-based Indian recipes via voice or text search with NLP matching and an interactive regional map UI for cultural food exploration.</p>
+          <div class="experiment-card__stack">
+            <span class="stack-chip">Streamlit</span>
+            <span class="stack-chip">Python</span>
+            <span class="stack-chip">NLP</span>
+            <span class="stack-chip">Speech Recognition</span>
+          </div>
+        </div>
+        <div class="experiment-card__footer">
+          <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="btn btn--outline btn--sm" onclick="event.stopPropagation(); openProjectModal('modal-recipes')">📐 Architecture</button>
+        </div>
+      </article>
+
+      <!-- PROJECT 6: Voice Translator -->
+      <article class="experiment-card reveal" data-modal="modal-voice" aria-label="Real-Time Voice Translator project">
+        <div class="experiment-card__header">
+          <div class="experiment-card__icon" style="background:rgba(99,102,241,0.12)">🗣️</div>
+          <div class="experiment-card__id">
+            <span class="experiment-card__status-dot"></span>
+            EXP-006 · DEPLOYED
+          </div>
+        </div>
+        <div class="experiment-card__body">
+          <h3 class="experiment-card__title">Real-Time Voice Translator</h3>
+          <p class="experiment-card__problem">Python-based real-time voice translator enabling English ↔ Spanish conversations using speech recognition, NLP translation logic, and text-to-speech synthesis.</p>
+          <div class="experiment-card__stack">
+            <span class="stack-chip">Python</span>
+            <span class="stack-chip">SpeechRecognition</span>
+            <span class="stack-chip">TTS</span>
+            <span class="stack-chip">NLP</span>
+          </div>
+        </div>
+        <div class="experiment-card__footer">
+          <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="btn btn--outline btn--sm" onclick="event.stopPropagation(); openProjectModal('modal-voice')">📐 Architecture</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECT MODALS ──────────────────────────────────────── -->
+<div id="project-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true">
+
+  <!-- Modal: Career Prediction -->
+  <div class="modal project-modal" id="modal-career" style="display:none">
+    <button class="modal__close" aria-label="Close">✕</button>
+    <div class="project-modal__header">
+      <div class="project-modal__icon" style="background:rgba(139,92,246,0.12)">🎯</div>
+      <div>
+        <h2 class="project-modal__title">AI Career Prediction & Guidance System</h2>
+        <div class="project-modal__id">EXP-001 · Python · TensorFlow · Streamlit · Scikit-learn</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Problem Statement</div>
+      <div class="modal-section__content">Students and freshers struggle to identify the right career path aligned with their academic strengths, skills, and interests. This system uses AI to provide personalized guidance.</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Architecture Flow</div>
+      <div class="arch-diagram">
+        <div class="arch-node"><span class="arch-node__icon">📥</span> User Input (Academic Data + Skills)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">⚙️</span> Data Preprocessing & Feature Extraction</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🧠</span> TensorFlow ML/DL Model</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">📊</span> Skill Gap Analysis Engine</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🎯</span> Career Path Recommendation</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🌊</span> Streamlit Web App Deployment</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Key Results</div>
+      <div class="result-block">✓ Personalized career recommendations based on ML predictions<br>✓ Integrated skill gap analysis to identify missing competencies<br>✓ Job market trend analysis improves recommendation accuracy<br>✓ Continuous improvement through user feedback system</div>
+    </div>
+    <div class="project-modal__actions">
+      <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--primary">🐙 View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- Modal: Agentic Gov Platform -->
+  <div class="modal project-modal" id="modal-gov" style="display:none">
+    <button class="modal__close" aria-label="Close">✕</button>
+    <div class="project-modal__header">
+      <div class="project-modal__icon" style="background:rgba(59,130,246,0.12)">🏛️</div>
+      <div>
+        <h2 class="project-modal__title">Agentic AI Government Service Platform</h2>
+        <div class="project-modal__id">EXP-002 · FastAPI · SQLAlchemy · MySQL · JWT · DigiLocker API</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Problem Statement</div>
+      <div class="modal-section__content">Government service processing is slow, manual, and error-prone. This platform automates citizen service requests using Agentic AI workflows for permits, licenses, and applications.</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Architecture Flow</div>
+      <div class="arch-diagram">
+        <div class="arch-node"><span class="arch-node__icon">👤</span> Citizen Request (JWT Authenticated)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🔐</span> DigiLocker Document Verification</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🤖</span> AI Agent Workflow Engine</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">⚡</span> FastAPI + SQLAlchemy Processing</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🗃️</span> MySQL Database (ORM)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">✅</span> Automated Decision + Response</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Key Results</div>
+      <div class="result-block">✓ End-to-end automation of government service requests<br>✓ Secure JWT-based authentication for citizens<br>✓ DigiLocker API integration for document verification<br>✓ AI agent workflow for intelligent request processing</div>
+    </div>
+    <div class="project-modal__actions">
+      <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--primary">🐙 View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- Modal: Urban Risk -->
+  <div class="modal project-modal" id="modal-urban" style="display:none">
+    <button class="modal__close" aria-label="Close">✕</button>
+    <div class="project-modal__header">
+      <div class="project-modal__icon" style="background:rgba(245,158,11,0.12)">🏙️</div>
+      <div>
+        <h2 class="project-modal__title">Urban Risk & Slum Eviction Prediction</h2>
+        <div class="project-modal__id">EXP-003 · Scikit-learn · Pandas · Folium · Data Visualization</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Architecture Flow</div>
+      <div class="arch-diagram">
+        <div class="arch-node"><span class="arch-node__icon">📦</span> Socioeconomic + Infrastructure Data</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">⚙️</span> Data Cleaning & Feature Engineering</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🧠</span> ML Classifier (Risk Detection)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🗺️</span> Spatial Analysis with Folium</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">📊</span> Interactive Risk Dashboard</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Key Results</div>
+      <div class="result-block">✓ Identifies high-risk urban zones with ML classification<br>✓ Vulnerability pattern detection from multi-source data<br>✓ Interactive spatial maps support urban planning decisions<br>✓ Social impact: aids policy-making for at-risk communities</div>
+    </div>
+    <div class="project-modal__actions">
+      <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--primary">🐙 View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- Modal: ASD -->
+  <div class="modal project-modal" id="modal-asd" style="display:none">
+    <button class="modal__close" aria-label="Close">✕</button>
+    <div class="project-modal__header">
+      <div class="project-modal__icon" style="background:rgba(16,185,129,0.12)">🧩</div>
+      <div>
+        <h2 class="project-modal__title">ASD Detection Web App</h2>
+        <div class="project-modal__id">EXP-004 · Flask · KNN · MySQL · Python</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Architecture Flow</div>
+      <div class="arch-diagram">
+        <div class="arch-node"><span class="arch-node__icon">📝</span> User Input Form (Clinical Indicators)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">⚙️</span> Flask Backend Processing</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🧠</span> KNN Classification Model</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🗃️</span> MySQL Result Storage</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">📊</span> Visual Dashboard (Result Display)</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Key Results</div>
+      <div class="result-block">✓ KNN model trained on ASD screening dataset<br>✓ Secure login system with session management<br>✓ Interactive visual dashboards for result interpretation<br>✓ Built & deployed during SmartInternz AI/ML internship</div>
+    </div>
+    <div class="project-modal__actions">
+      <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--primary">🐙 View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- Modal: Lost Recipes -->
+  <div class="modal project-modal" id="modal-recipes" style="display:none">
+    <button class="modal__close" aria-label="Close">✕</button>
+    <div class="project-modal__header">
+      <div class="project-modal__icon" style="background:rgba(239,68,68,0.12)">🍛</div>
+      <div>
+        <h2 class="project-modal__title">Lost Recipes Finder</h2>
+        <div class="project-modal__id">EXP-005 · Streamlit · Python · NLP · Speech Recognition</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Architecture Flow</div>
+      <div class="arch-diagram">
+        <div class="arch-node"><span class="arch-node__icon">🎤</span> Voice / Text Query Input</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">📝</span> NLP Query Processing</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🗺️</span> Region-Based Recipe Matching</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🌊</span> Streamlit Interactive UI</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🍛</span> Recipe Display + Regional Map</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Key Results</div>
+      <div class="result-block">✓ Voice and text search both supported<br>✓ NLP matching for semantic recipe discovery<br>✓ Interactive regional map of Indian cuisine<br>✓ Cultural preservation through technology</div>
+    </div>
+    <div class="project-modal__actions">
+      <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--primary">🐙 View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- Modal: Voice Translator -->
+  <div class="modal project-modal" id="modal-voice" style="display:none">
+    <button class="modal__close" aria-label="Close">✕</button>
+    <div class="project-modal__header">
+      <div class="project-modal__icon" style="background:rgba(99,102,241,0.12)">🗣️</div>
+      <div>
+        <h2 class="project-modal__title">Real-Time Voice Translator</h2>
+        <div class="project-modal__id">EXP-006 · Python · SpeechRecognition · TTS · NLP</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Architecture Flow</div>
+      <div class="arch-diagram">
+        <div class="arch-node"><span class="arch-node__icon">🎤</span> Voice Input (English / Spanish)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">📝</span> Speech-to-Text (SpeechRecognition)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🔄</span> NLP Translation Engine</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🔊</span> Text-to-Speech (TTS Output)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-node"><span class="arch-node__icon">🗣️</span> Real-Time Conversation</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section__label">Key Results</div>
+      <div class="result-block">✓ Real-time English ↔ Spanish voice translation<br>✓ Low-latency speech recognition pipeline<br>✓ Built during NullClass Data Science Internship<br>✓ Supports bidirectional conversation flow</div>
+    </div>
+    <div class="project-modal__actions">
+      <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="btn btn--primary">🐙 View on GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SIMULATION SECTION
+════════════════════════════════════════════════════════════ -->
+<section id="simulation" class="section section--alt" aria-labelledby="simulation-title">
+  <div class="container" style="position:relative">
+    <div class="simulation__bg-text" aria-hidden="true">SIM</div>
+
+    <div class="section-header reveal">
+      <div class="section-header__label">05 // candidate_sim_engine</div>
+      <h2 class="section-header__title" id="simulation-title">Candidate Simulation Engine</h2>
+      <p class="section-header__subtitle">Select your requirements. Let the AI find your perfect candidate.</p>
+    </div>
+
+    <div class="simulation__layout">
+      <!-- Left: Selector -->
+      <div class="simulation__panel reveal reveal--left">
+        <div class="simulation__panel-title">⚙️ Job Requirements</div>
+        <p class="simulation__hint">Select the skills and traits you need. The engine will compute candidate compatibility and generate a recommendation.</p>
+
+        <div class="simulation__chips">
+          <button class="sim-chip" data-skill="python"><span class="sim-chip__icon">🐍</span> Python <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="machine-learning"><span class="sim-chip__icon">🧠</span> Machine Learning <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="deep-learning"><span class="sim-chip__icon">🔮</span> Deep Learning <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="nlp"><span class="sim-chip__icon">📝</span> NLP <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="research"><span class="sim-chip__icon">🔬</span> Research <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="problem-solving"><span class="sim-chip__icon">🧩</span> Problem Solving <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="communication"><span class="sim-chip__icon">💬</span> Communication <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="leadership"><span class="sim-chip__icon">🎯</span> Leadership <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="open-source"><span class="sim-chip__icon">🌍</span> Open Source <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="teamwork"><span class="sim-chip__icon">🤝</span> Teamwork <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="data-science"><span class="sim-chip__icon">📊</span> Data Science <span class="sim-chip__check">✓</span></button>
+          <button class="sim-chip" data-skill="cloud"><span class="sim-chip__icon">☁️</span> Cloud AI <span class="sim-chip__check">✓</span></button>
+        </div>
+
+        <button class="btn btn--primary simulation__run-btn" id="sim-run-btn" disabled>
+          Select requirements to run
+        </button>
+        <div class="simulation__counter" id="sim-counter">
+          <span>0</span> requirements selected
+        </div>
+      </div>
+
+      <!-- Right: Output -->
+      <div class="simulation__output reveal reveal--right">
+        <!-- Idle State -->
+        <div class="simulation__idle" id="sim-idle">
+          <div class="simulation__idle-icon">🤖</div>
+          <div class="simulation__idle-text">
+            Awaiting input parameters...<br>
+            <code>status: STANDBY</code>
+          </div>
+        </div>
+
+        <!-- Processing State (injected by simulation.js) -->
+        <div class="simulation__processing" id="sim-processing"></div>
+
+        <!-- Result State -->
+        <div class="simulation__result" id="sim-result">
+          <!-- Score Ring -->
+          <div class="result__score-ring">
+            <svg class="result__ring-svg" width="130" height="130" viewBox="0 0 130 130">
+              <defs>
+                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#8B5CF6"/>
+                  <stop offset="100%" style="stop-color:#C4B5FD"/>
+                </linearGradient>
+              </defs>
+              <circle class="result__ring-bg"   cx="65" cy="65" r="45"/>
+              <circle class="result__ring-fill" id="sim-ring-fill" cx="65" cy="65" r="45"/>
             </svg>
+            <div class="result__ring-text">
+              <div class="result__score-number" id="sim-score-number">0%</div>
+              <div class="result__score-label">COMPATIBILITY</div>
+            </div>
+          </div>
+
+          <!-- Candidate Result -->
+          <div class="result__candidate">
+            <div class="result__label">🏆 RECOMMENDED CANDIDATE</div>
+            <div class="result__name">Padmaja Kachare</div>
+            <div class="result__title">AI & Machine Learning Engineer</div>
+          </div>
+
+          <!-- Matched skills -->
+          <div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">MATCHED PARAMETERS</div>
+            <div class="result__matched-skills" id="sim-matched-skills"></div>
           </div>
         </div>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 6</div>
-      <div class="page-date">Learning ✦</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     EVALUATION SECTION — Stats & Achievements
+════════════════════════════════════════════════════════════ -->
+<section id="evaluation" class="section" aria-labelledby="evaluation-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">06 // model_evaluation</div>
+      <h2 class="section-header__title" id="evaluation-title">Model Evaluation Report</h2>
+      <p class="section-header__subtitle">Quantified performance metrics from real training and deployment</p>
     </div>
 
-    <!-- PAGE 6: CERTIFICATIONS -->
-    <div class="page" data-idx="6" id="page-6">
-      <div class="page-inner scrollable">
-        <div class="washi w-top2"></div>
-        <div class="flower-deco f2">🌷</div>
-        <div class="doodle-heart" style="top:46px;right:75px;animation-delay:.6s">♡</div>
+    <!-- Stats Cards -->
+    <div class="evaluation__stats">
+      <div class="stat-card reveal"><span class="stat-card__icon">🔬</span><div class="stat-card__value" data-count="6" data-suffix="+">0+</div><div class="stat-card__label">Projects Completed</div></div>
+      <div class="stat-card reveal"><span class="stat-card__icon">💼</span><div class="stat-card__value" data-count="5">0</div><div class="stat-card__label">Internships</div></div>
+      <div class="stat-card reveal"><span class="stat-card__icon">🏆</span><div class="stat-card__value" data-count="10" data-suffix="+">0+</div><div class="stat-card__label">Certifications</div></div>
+      <div class="stat-card reveal"><span class="stat-card__icon">📊</span><div class="stat-card__value" data-count="90" data-suffix="%">0%</div><div class="stat-card__label">Diploma Score</div></div>
+      <div class="stat-card reveal"><span class="stat-card__icon">🌍</span><div class="stat-card__value" data-count="3">0</div><div class="stat-card__label">Open Source Contributions</div></div>
+      <div class="stat-card reveal"><span class="stat-card__icon">🔥</span><div class="stat-card__value" data-count="365" data-suffix="+">0+</div><div class="stat-card__label">Learning Streak (days)</div></div>
+    </div>
 
-        <p class="sec-label fu">Badges Collected</p>
-        <h2 class="sec-title fu1"><span class="scribble">Certifications</span></h2>
-
-        <div class="certs-grid">
-          <div class="cert-card fu1"><div class="cert-issuer">McKinsey</div>Forward Program</div>
-          <div class="cert-card fu1"><div class="cert-issuer">TCS ION</div>Career Edge – Young Professional</div>
-          <div class="cert-card fu2"><div class="cert-issuer">Google Cloud</div>Prompt Design in Vertex AI</div>
-          <div class="cert-card fu2"><div class="cert-issuer">Google Cloud</div>GenAI Apps with Gemini & Streamlit</div>
-          <div class="cert-card fu3"><div class="cert-issuer">Microsoft Learn</div>GitHub Copilot</div>
-          <div class="cert-card fu3"><div class="cert-issuer">NullClass</div>Real-Time Translation App</div>
-          <div class="cert-card fu4"><div class="cert-issuer">British Airways / Forage</div>Data Science Simulation</div>
-          <div class="cert-card fu4"><div class="cert-issuer">Tech Mahindra / Skill India</div>Cybersecurity Course</div>
-          <div class="cert-card fu5"><div class="cert-issuer">Beep</div>Work Ready Certification</div>
+    <!-- Chart + Certifications -->
+    <div class="evaluation__layout">
+      <!-- Radar Chart -->
+      <div class="evaluation__chart-box reveal reveal--left">
+        <div class="chart-box__title">// skill_radar_chart.py</div>
+        <canvas id="eval-canvas" aria-label="Skill competency radar chart"></canvas>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6"></div> Core Competency</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(139,92,246,0.3)"></div> Development Area</div>
         </div>
-
-        <!-- Stamp doodle -->
-        <div style="position:absolute;bottom:28px;right:34px;opacity:.2;transform:rotate(12deg);font-size:2rem">🎖️</div>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 7</div>
-      <div class="page-date">Certs ✦</div>
+
+      <!-- Certifications -->
+      <div class="evaluation__certs reveal reveal--right">
+        <div class="chart-box__title">// certifications.json</div>
+        <div class="cert-list">
+          <div class="cert-item"><span class="cert-item__icon">📜</span><div class="cert-item__info"><div class="cert-item__name">McKinsey Forward Program</div><div class="cert-item__issuer">McKinsey.org</div></div><div class="cert-item__date">Jul 2025</div></div>
+          <div class="cert-item"><span class="cert-item__icon">🏢</span><div class="cert-item__info"><div class="cert-item__name">TCS ION Career Edge — Young Professional</div><div class="cert-item__issuer">TCS ION</div></div><div class="cert-item__date">Feb 2025</div></div>
+          <div class="cert-item"><span class="cert-item__icon">☁️</span><div class="cert-item__info"><div class="cert-item__name">Develop GenAI Apps with Gemini & Streamlit</div><div class="cert-item__issuer">Google Cloud</div></div><div class="cert-item__date">Jul 2024</div></div>
+          <div class="cert-item"><span class="cert-item__icon">🔵</span><div class="cert-item__info"><div class="cert-item__name">Prompt Design in Vertex AI</div><div class="cert-item__issuer">Google Cloud</div></div><div class="cert-item__date">Jul 2024</div></div>
+          <div class="cert-item"><span class="cert-item__icon">🐙</span><div class="cert-item__info"><div class="cert-item__name">Get Started with GitHub Copilot</div><div class="cert-item__issuer">Microsoft Learn</div></div><div class="cert-item__date">May 2025</div></div>
+          <div class="cert-item"><span class="cert-item__icon">✈️</span><div class="cert-item__info"><div class="cert-item__name">British Airways Data Science Simulation</div><div class="cert-item__issuer">Forage</div></div><div class="cert-item__date">Oct 2024</div></div>
+          <div class="cert-item"><span class="cert-item__icon">🔒</span><div class="cert-item__info"><div class="cert-item__name">Cybersecurity Course</div><div class="cert-item__issuer">Tech Mahindra / Skill India</div></div><div class="cert-item__date">Jan 2025</div></div>
+          <div class="cert-item"><span class="cert-item__icon">📱</span><div class="cert-item__info"><div class="cert-item__name">Work Ready Certification</div><div class="cert-item__issuer">Beep</div></div><div class="cert-item__date">Apr 2025</div></div>
+          <div class="cert-item"><span class="cert-item__icon">🌿</span><div class="cert-item__info"><div class="cert-item__name">Nestle E-Learning — Sustainability</div><div class="cert-item__issuer">Nestlé</div></div><div class="cert-item__date">Mar 2025</div></div>
+          <div class="cert-item"><span class="cert-item__icon">🗣️</span><div class="cert-item__info"><div class="cert-item__name">Real-Time Translation App</div><div class="cert-item__issuer">NullClass</div></div><div class="cert-item__date">Apr 2025</div></div>
+        </div>
+      </div>
     </div>
 
-    <!-- PAGE 7: CONTACT -->
-    <div class="page" data-idx="7" id="page-7">
-      <div class="page-inner">
-        <div class="washi w-top"></div>
-        <div class="flower-deco f1">🌸</div>
-        <div class="flower-deco f2">🌺</div>
-        <div class="doodle-star" style="top:42px;right:78px;animation-delay:.4s">✦</div>
-        <div class="doodle-heart" style="bottom:90px;left:58px;animation-delay:1.1s">♡</div>
-        <div class="ink-blot" style="width:200px;height:200px;bottom:-60px;right:-60px;opacity:.04"></div>
+    <!-- Achievements -->
+    <div style="margin-top:var(--space-10)">
+      <div class="section-header" style="margin-bottom:var(--space-8);text-align:left">
+        <div class="section-header__label" style="margin-bottom:0">Achievements & Extracurriculars</div>
+      </div>
+      <div class="achievements-grid">
+        <div class="achievement-card reveal"><span class="achievement-card__icon">🏆</span><div><div class="achievement-card__title">BIZENCE Startup Innovation Challenge</div><div class="achievement-card__desc">Collaborated in team to develop go-to-market strategies and navigate competitive business challenges in a startup simulation event.</div></div></div>
+        <div class="achievement-card reveal"><span class="achievement-card__icon">📊</span><div><div class="achievement-card__title">90%+ Academic Excellence</div><div class="achievement-card__desc">Consistently maintained 90%+ academic performance throughout Diploma in AI & ML Engineering program.</div></div></div>
+        <div class="achievement-card reveal"><span class="achievement-card__icon">🌍</span><div><div class="achievement-card__title">British Airways Data Science Simulation</div><div class="achievement-card__desc">Completed industry-level data science simulation analyzing real airline customer data and predicting booking behavior.</div></div></div>
+        <div class="achievement-card reveal"><span class="achievement-card__icon">🚀</span><div><div class="achievement-card__title">McKinsey Forward Program Graduate</div><div class="achievement-card__desc">Completed McKinsey's forward-thinking leadership and professional development program for emerging talent.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <p class="sec-label fu" style="justify-content:center">Say Hello</p>
-        <h2 class="sec-title fu1" style="text-align:center"><span class="scribble">Let's Connect</span></h2>
+<!-- ════════════════════════════════════════════════════════════
+     RESEARCH SECTION — Notebook
+════════════════════════════════════════════════════════════ -->
+<section id="research" class="section section--alt" aria-labelledby="research-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">07 // research_notebook</div>
+      <h2 class="section-header__title" id="research-title">Research Notebook</h2>
+      <p class="section-header__subtitle">Logs, learnings, and explorations from the AI lab</p>
+    </div>
 
-        <div class="contact-inner fu2">
-          <p>I'm open to collaborating on meaningful AI projects, internship opportunities, or just a friendly chat about ML and ideas that matter. ✦</p>
-          <div class="contact-links">
-            <a class="clink" href="mailto:padmajakachare1911@gmail.com">📧 Email</a>
-            <a class="clink" href="https://linkedin.com/in/padmaja-kachare" target="_blank">💼 LinkedIn</a>
-            <a class="clink" href="https://github.com/Padmajakachare1911" target="_blank">💻 GitHub</a>
+    <!-- Controls -->
+    <div class="research__controls reveal">
+      <div class="research__search-wrap">
+        <span class="research__search-icon">🔍</span>
+        <input type="search" id="research-search" class="research__search" placeholder="Search notes..." aria-label="Search research notes" />
+      </div>
+      <div class="research__filters">
+        <button class="research__filter active" data-filter="all">All</button>
+        <button class="research__filter" data-filter="concept">AI Concepts</button>
+        <button class="research__filter" data-filter="project">Project Notes</button>
+        <button class="research__filter" data-filter="learning">Learning Logs</button>
+        <button class="research__filter" data-filter="research">Research</button>
+      </div>
+    </div>
 
+    <!-- Notebook Cards Grid -->
+    <div class="research__grid" id="research-grid">
+
+      <article class="notebook-card reveal" data-category="concept" style="--card-accent:#8B5CF6">
+        <div class="notebook-card__header">
+          <span class="notebook-card__category">AI Concept</span>
+          <span class="notebook-card__date">2025</span>
+        </div>
+        <div class="notebook-card__body">
+          <h3 class="notebook-card__title">Understanding Transformer Architecture & BERT</h3>
+          <p class="notebook-card__excerpt">Deep dive into the attention mechanism, positional encoding, and how BERT revolutionized NLP. Notes on fine-tuning BERT for text classification tasks using Hugging Face library.</p>
+          <div class="notebook-card__tags"><span class="notebook-tag">BERT</span><span class="notebook-tag">Transformers</span><span class="notebook-tag">NLP</span></div>
+          <span class="notebook-card__read-more">Read note →</span>
+        </div>
+      </article>
+
+      <article class="notebook-card reveal" data-category="research" style="--card-accent:#3B82F6">
+        <div class="notebook-card__header">
+          <span class="notebook-card__category">Research</span>
+          <span class="notebook-card__date">2025</span>
+        </div>
+        <div class="notebook-card__body">
+          <h3 class="notebook-card__title">Agentic AI & LangGraph: Building Autonomous Workflows</h3>
+          <p class="notebook-card__excerpt">Exploration of agentic AI patterns — tool use, memory, planning, and reflection. LangGraph enables stateful multi-agent workflows. Notes from building my first autonomous agent pipeline.</p>
+          <div class="notebook-card__tags"><span class="notebook-tag">LangGraph</span><span class="notebook-tag">Agents</span><span class="notebook-tag">Agentic AI</span></div>
+          <span class="notebook-card__read-more">Read note →</span>
+        </div>
+      </article>
+
+      <article class="notebook-card reveal" data-category="concept" style="--card-accent:#10B981">
+        <div class="notebook-card__header">
+          <span class="notebook-card__category">AI Concept</span>
+          <span class="notebook-card__date">2025</span>
+        </div>
+        <div class="notebook-card__body">
+          <h3 class="notebook-card__title">GANs & VAEs: Generative Model Deep Dive</h3>
+          <p class="notebook-card__excerpt">Understanding Generative Adversarial Networks and Variational Autoencoders from first principles. Notes on the GAN training instability problem and VAE latent space visualization experiments.</p>
+          <div class="notebook-card__tags"><span class="notebook-tag">GANs</span><span class="notebook-tag">VAE</span><span class="notebook-tag">Generative AI</span></div>
+          <span class="notebook-card__read-more">Read note →</span>
+        </div>
+      </article>
+
+      <article class="notebook-card reveal" data-category="learning" style="--card-accent:#F59E0B">
+        <div class="notebook-card__header">
+          <span class="notebook-card__category">Learning Log</span>
+          <span class="notebook-card__date">2025</span>
+        </div>
+        <div class="notebook-card__body">
+          <h3 class="notebook-card__title">RAG Systems: From Naive to Advanced Retrieval</h3>
+          <p class="notebook-card__excerpt">Journey through Retrieval-Augmented Generation — from simple vector store lookup to hybrid search, re-ranking, and parent-child chunking strategies for better context retrieval.</p>
+          <div class="notebook-card__tags"><span class="notebook-tag">RAG</span><span class="notebook-tag">Vector DB</span><span class="notebook-tag">LLM</span></div>
+          <span class="notebook-card__read-more">Read note →</span>
+        </div>
+      </article>
+
+      <article class="notebook-card reveal" data-category="project" style="--card-accent:#EF4444">
+        <div class="notebook-card__header">
+          <span class="notebook-card__category">Project Notes</span>
+          <span class="notebook-card__date">2024</span>
+        </div>
+        <div class="notebook-card__body">
+          <h3 class="notebook-card__title">Building the Agentic Government Service Platform</h3>
+          <p class="notebook-card__excerpt">Technical notes from designing the AI agent workflow for government service automation — FastAPI architecture decisions, DigiLocker integration challenges, and JWT security implementation.</p>
+          <div class="notebook-card__tags"><span class="notebook-tag">FastAPI</span><span class="notebook-tag">AI Agents</span><span class="notebook-tag">System Design</span></div>
+          <span class="notebook-card__read-more">Read note →</span>
+        </div>
+      </article>
+
+      <article class="notebook-card reveal" data-category="research" style="--card-accent:#6366F1">
+        <div class="notebook-card__header">
+          <span class="notebook-card__category">Research</span>
+          <span class="notebook-date">2024</span>
+        </div>
+        <div class="notebook-card__body">
+          <h3 class="notebook-card__title">MLOps: From Notebook to Production ML Systems</h3>
+          <p class="notebook-card__excerpt">Studying MLOps practices — model versioning, experiment tracking, CI/CD for ML, containerization with Docker, and monitoring deployed models. Notes on the full ML lifecycle beyond Jupyter notebooks.</p>
+          <div class="notebook-card__tags"><span class="notebook-tag">MLOps</span><span class="notebook-tag">Docker</span><span class="notebook-tag">CI/CD</span></div>
+          <span class="notebook-card__read-more">Read note →</span>
+        </div>
+      </article>
+    </div>
+
+    <div id="research-no-results" class="research__no-results">
+      <div style="font-size:2rem;margin-bottom:1rem">🔍</div>
+      No notes found matching your search.
+    </div>
+
+    <!-- Currently Learning Checklist -->
+    <div class="currently-learning reveal">
+      <div class="currently-learning__title">⚡ Currently Training On</div>
+      <div class="learning-list">
+        <div class="learning-item">
+          <span class="learning-item__icon">🔗</span>
+          <div class="learning-item__info">
+            <div class="learning-item__name">RAG Systems</div>
+            <div class="learning-item__progress-wrap">
+              <div class="learning-item__bar"><div class="learning-item__fill" data-progress="75"></div></div>
+              <span class="learning-item__pct">75%</span>
+            </div>
           </div>
         </div>
+        <div class="learning-item">
+          <span class="learning-item__icon">🤖</span>
+          <div class="learning-item__info">
+            <div class="learning-item__name">AI Agents</div>
+            <div class="learning-item__progress-wrap">
+              <div class="learning-item__bar"><div class="learning-item__fill" data-progress="65"></div></div>
+              <span class="learning-item__pct">65%</span>
+            </div>
+          </div>
+        </div>
+        <div class="learning-item">
+          <span class="learning-item__icon">🔧</span>
+          <div class="learning-item__info">
+            <div class="learning-item__name">MLOps</div>
+            <div class="learning-item__progress-wrap">
+              <div class="learning-item__bar"><div class="learning-item__fill" data-progress="55"></div></div>
+              <span class="learning-item__pct">55%</span>
+            </div>
+          </div>
+        </div>
+        <div class="learning-item">
+          <span class="learning-item__icon">🕸️</span>
+          <div class="learning-item__info">
+            <div class="learning-item__name">LangGraph</div>
+            <div class="learning-item__progress-wrap">
+              <div class="learning-item__bar"><div class="learning-item__fill" data-progress="50"></div></div>
+              <span class="learning-item__pct">50%</span>
+            </div>
+          </div>
+        </div>
+        <div class="learning-item">
+          <span class="learning-item__icon">⚡</span>
+          <div class="learning-item__info">
+            <div class="learning-item__name">Fine Tuning LLMs</div>
+            <div class="learning-item__progress-wrap">
+              <div class="learning-item__bar"><div class="learning-item__fill" data-progress="40"></div></div>
+              <span class="learning-item__pct">40%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- closing diary note -->
-        <div style="margin-top:30px;padding:18px 22px;background:rgba(248,187,208,.25);border-radius:12px;border-left:3px solid var(--rose)" class="fu3">
-          <p style="font-family:'Caveat',cursive;font-size:1.05rem;color:var(--inkl);line-height:1.7">
-            "Made with 🌸 and lots of ☕<br/>
-            Uran, Navi Mumbai — 2025"
-          </p>
+<!-- ════════════════════════════════════════════════════════════
+     DEPLOYMENT SECTION — Contact
+════════════════════════════════════════════════════════════ -->
+<section id="deployment" class="section" aria-labelledby="deployment-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header__label">08 // deployment_endpoint</div>
+      <h2 class="section-header__title" id="deployment-title">Deployment Endpoint</h2>
+      <p class="section-header__subtitle">Ready for production. Available for collaboration.</p>
+    </div>
+
+    <div class="deployment__layout">
+      <!-- Copy -->
+      <div class="deployment__copy reveal reveal--left">
+        <div class="deployment__eyebrow">🟢 OPEN TO OPPORTUNITIES</div>
+        <h2 class="deployment__title">Let's <span>Build</span><br>Something<br>Together</h2>
+        <p class="deployment__desc">Whether you're looking for an AI intern, a collaborator on a research project, or a fresh perspective on an ML problem — I'm ready to deploy.</p>
+        <a href="mailto:padmajakachare1911@gmail.com" class="deployment__email-link">
+          📧 padmajakachare1911@gmail.com →
+        </a>
+        <div class="availability-badge">Available for AI/ML internships & roles</div>
+      </div>
+
+      <!-- Endpoints Panel -->
+      <div class="deployment__endpoints reveal reveal--right">
+        <div class="endpoints__header">
+          <span class="endpoints__header-dot"></span>
+          <span class="endpoints__header-dot"></span>
+          <span class="endpoints__header-dot"></span>
+          <span class="endpoints__header-title">padmajaai/endpoints/v1</span>
         </div>
 
-        <!-- envelope doodle -->
-        <svg style="position:absolute;bottom:28px;right:36px;width:70px;opacity:.3;animation:doodle-bob 4s ease-in-out infinite" viewBox="0 0 70 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="66" height="48" rx="5" fill="#fce4ec" stroke="#f48fb1" stroke-width="2"/>
-          <polyline points="2,2 35,30 68,2" stroke="#f48fb1" stroke-width="2" fill="none"/>
-        </svg>
+        <a href="mailto:padmajakachare1911@gmail.com" class="endpoint-item">
+          <span class="endpoint-method endpoint-method--post">POST</span>
+          <span class="endpoint-path">/<span>email</span></span>
+          <span class="endpoint-desc">Send message</span>
+          <span class="endpoint-arrow">↗</span>
+        </a>
+
+        <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="endpoint-item">
+          <span class="endpoint-method endpoint-method--get">GET</span>
+          <span class="endpoint-path">/<span>github</span></span>
+          <span class="endpoint-desc">View repos</span>
+          <span class="endpoint-arrow">↗</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/padmaja-kachare/" target="_blank" rel="noopener" class="endpoint-item">
+          <span class="endpoint-method endpoint-method--get">GET</span>
+          <span class="endpoint-path">/<span>linkedin</span></span>
+          <span class="endpoint-desc">Professional profile</span>
+          <span class="endpoint-arrow">↗</span>
+        </a>
+
+        <a href="assets/resume/Padmaja_Kachare_Resume.pdf" download="Padmaja_Kachare_Resume.pdf" class="endpoint-item" data-track="resume-download">
+          <span class="endpoint-method endpoint-method--get">GET</span>
+          <span class="endpoint-path">/<span>resume.pdf</span></span>
+          <span class="endpoint-desc">Download CV</span>
+          <span class="endpoint-arrow">↓</span>
+        </a>
       </div>
-      <div class="page-curl"></div>
-      <div class="page-num">pg. 8</div>
-      <div class="page-date">Fin ✦</div>
     </div>
 
-    <!-- COVER PAGE (front, on top) -->
-    <div id="cover-page">
-      <div class="cover-doodle">🌸</div>
-      <div class="cover-line"></div>
-      <h1 class="cover-title">Padmaja<br/><em style="font-style:italic;color:var(--deep)">Kachare</em></h1>
-      <p class="cover-sub">AI & Data Science Portfolio</p>
-      <div class="cover-line"></div>
-      <p style="font-family:'Caveat',cursive;font-size:.95rem;color:var(--inkl);margin:16px 0 4px">Uran, Navi Mumbai · 2025</p>
-      <p class="cover-open-hint">✦ click to open ✦</p>
+    <!-- Resume CTA -->
+    <div class="deployment__resume-cta reveal">
+      <span class="resume-cta__icon">📄</span>
+      <h3 class="resume-cta__title">Download Model Documentation</h3>
+      <p class="resume-cta__subtitle">Full technical specifications, training history, and deployment guidelines</p>
+      <div class="availability-badge">🟢 Available for AI/ML Internships · Open Source Collaboration · Research</div>
+      <br><br>
+      <a href="assets/resume/Padmaja_Kachare_Resume.pdf" download="Padmaja_Kachare_Resume.pdf" class="btn btn--primary" style="font-size:1rem;padding:1rem 2rem" data-track="resume-download">
+        📥 Download Model Documentation
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <div class="footer__logo-icon">🧠</div>
+          <span class="footer__logo-text">PadmajaAI v2.6</span>
+        </div>
+        <p class="footer__tagline">
+          An interactive AI system representing the journey of Padmaja Kachare — AI & ML Engineer in Training.
+          Built with HTML5 · CSS3 · Vanilla JavaScript.
+        </p>
+      </div>
+
+      <div class="footer__links">
+        <a href="https://github.com/Padmajakachare1911" target="_blank" rel="noopener" class="footer__link" aria-label="GitHub">🐙</a>
+        <a href="https://www.linkedin.com/in/padmaja-kachare/" target="_blank" rel="noopener" class="footer__link" aria-label="LinkedIn">💼</a>
+        <a href="mailto:padmajakachare1911@gmail.com" class="footer__link" aria-label="Email">📧</a>
+      </div>
     </div>
 
-  </div><!-- /book -->
-</div><!-- /book-shell -->
+    <div class="footer__status">
+      <div class="footer__status-left">
+        <div class="footer__status-item">MODEL_STATUS: <span>ACTIVE 🟢</span></div>
+        <div class="footer__status-item">VERSION: <span>v2.6.0</span></div>
+        <div class="footer__status-item">LOCATION: <span>Navi Mumbai, India</span></div>
+        <div class="footer__status-item">EPOCH: <span>6 / ∞</span></div>
+      </div>
 
-<!-- MODALS -->
-<div class="modal-overlay" id="m1"><div class="modal"><button class="modal-close" onclick="closeModal('m1')">×</button><div class="modal-emoji">🎯</div><div class="modal-title">AI Career Prediction & Guidance System</div><div class="modal-body"><p>An intelligent platform predicting suitable career paths based on academic performance, skills & interests.</p><ul><li>ML/DL models with TensorFlow for personalized recommendations</li><li>Skill gap analysis to identify missing competencies</li><li>Job market trend analysis integrated into recommendations</li><li>Interactive Streamlit web app with career path visualizations</li><li>Feedback loop for continuous model improvement</li></ul></div><div class="modal-stack"><span>Python</span><span>TensorFlow</span><span>Scikit-learn</span><span>Streamlit</span></div></div></div>
-<div class="modal-overlay" id="m2"><div class="modal"><button class="modal-close" onclick="closeModal('m2')">×</button><div class="modal-emoji">🏛️</div><div class="modal-title">Agentic AI Government Service Platform</div><div class="modal-body"><p>Full-stack AI automation for government service requests — permits, licenses, citizen applications.</p><ul><li>FastAPI backend with SQLAlchemy ORM and MySQL</li><li>JWT-based authentication for secure citizen access</li><li>DigiLocker API integration for document verification</li><li>AI agent workflow for automated analysis and validation</li></ul></div><div class="modal-stack"><span>FastAPI</span><span>SQLAlchemy</span><span>MySQL</span><span>JWT</span><span>HTML/CSS/JS</span></div></div></div>
-<div class="modal-overlay" id="m3"><div class="modal"><button class="modal-close" onclick="closeModal('m3')">×</button><div class="modal-emoji">🏙️</div><div class="modal-title">Urban Risk & Slum Eviction Prediction</div><div class="modal-body"><p>ML system identifying high-risk urban zones prone to displacement — built to support urban planning.</p><ul><li>Analyzed socioeconomic, demographic & infrastructure data</li><li>Classification models to detect vulnerability patterns</li><li>Interactive dashboards and spatial mapping tools</li></ul></div><div class="modal-stack"><span>Scikit-learn</span><span>Pandas</span><span>Data Visualization</span><span>Python</span></div></div></div>
-<div class="modal-overlay" id="m4"><div class="modal"><button class="modal-close" onclick="closeModal('m4')">×</button><div class="modal-emoji">🧩</div><div class="modal-title">ASD Detection Web App</div><div class="modal-body"><p>Flask web application using KNN to detect Autism Spectrum Disorder, with login system and dashboards.</p><ul><li>KNN classifier on behavioral and medical data</li><li>MySQL database for user and result management</li><li>Visual dashboards for interpreting predictions</li></ul></div><div class="modal-stack"><span>Flask</span><span>KNN</span><span>MySQL</span><span>Python</span></div></div></div>
-<div class="modal-overlay" id="m5"><div class="modal"><button class="modal-close" onclick="closeModal('m5')">×</button><div class="modal-emoji">🛡️</div><div class="modal-title">SafeGate AI — Windows Active Enforcement System</div><div class="modal-body"><p>A real-time, multi-source content safety system with OS-level active enforcement on Windows. Monitors typing, clipboard, window titles, file downloads, and screen content for explicit material, grooming, and sextortion — proactively blocking the UI when threats are detected.</p><ul><li>⌨️ <strong>Live Typing:</strong> Global pynput hooks with buffer analysis — stops harmful content before a message is sent</li><li>📋 <strong>Clipboard Guard:</strong> Native pyperclip event monitoring — prevents leaks via copy-paste</li><li>🖥️ <strong>Window Scan:</strong> win32gui enumeration of all active titles — catches browser searches instantly</li><li>📁 <strong>File Guard:</strong> watchdog on ~/Downloads — blocks harmful downloads before they're opened</li><li>👁️ <strong>Screen OCR:</strong> pytesseract + Pillow screen sampling — reads visual text-based threats</li><li>💎 <strong>Premium HUD:</strong> Glassmorphism UI — professional hackathon-ready presentation</li></ul></div><div class="modal-stack"><span>Python</span><span>pynput</span><span>win32gui</span><span>pytesseract</span><span>watchdog</span><span>AI Pipeline</span></div></div></div>
-<div class="modal-overlay" id="m6"><div class="modal"><button class="modal-close" onclick="closeModal('m6')">×</button><div class="modal-emoji">🎙️</div><div class="modal-title">Real-Time Voice Translator</div><div class="modal-body"><p>Python app enabling real-time English ↔ Spanish conversations using speech recognition and TTS.</p><ul><li>SpeechRecognition for live audio capture</li><li>TTS output for seamless two-way communication</li><li>Low-latency translation pipeline</li></ul></div><div class="modal-stack"><span>SpeechRecognition</span><span>TTS</span><span>Python</span></div></div></div>
+      <button class="footer__back-top" id="back-to-top" aria-label="Back to top">
+        ↑ Back to top
+      </button>
+    </div>
 
+    <div class="footer__made-with">
+      Built with <span>♥</span> and lots of <span>∇</span> gradient descent · © 2025 Padmaja Kachare
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     CHATBOT FAB + WINDOW
+════════════════════════════════════════════════════════════ -->
+<button id="chat-fab" aria-label="Open AI chatbot" title="Ask PadmajaAI">🤖
+  <span class="chat-badge">1</span>
+</button>
+
+<div id="chat-window" role="dialog" aria-modal="true" aria-label="PadmajaAI chatbot">
+  <div class="chat__header">
+    <div class="chat__avatar">🤖</div>
+    <div class="chat__info">
+      <div class="chat__name">PadmajaAI Assistant</div>
+      <div class="chat__status">Online · Powered by rule-based NLP</div>
+    </div>
+    <button class="chat__close" id="chat-close" aria-label="Close chat">✕</button>
+  </div>
+
+  <div class="chat__messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
+
+  <div class="chat__suggestions" id="chat-suggestions">
+    <div class="chat__suggestions-label">Try asking:</div>
+    <div class="suggestion-chips">
+      <button class="suggestion-chip">Tell me about Padmaja</button>
+      <button class="suggestion-chip">Show projects</button>
+      <button class="suggestion-chip">Show skills</button>
+      <button class="suggestion-chip">Show achievements</button>
+      <button class="suggestion-chip">How to contact?</button>
+    </div>
+  </div>
+
+  <div class="chat__input-area">
+    <div class="chat__input-wrap">
+      <textarea id="chat-input" placeholder="Ask me anything..." rows="1" aria-label="Chat input"></textarea>
+      <button id="chat-send" aria-label="Send message">➤</button>
+    </div>
+    <div class="chat__disclaimer">Rule-based AI · No data stored · For demo purposes</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT — Load order matters
+     1. darkmode.js  — loaded in <head> (prevents flash)
+     2. typing.js    — typewriter effects
+     3. animations.js— boot sequence + scroll + canvas
+     4. timeline.js  — epoch expand/collapse
+     5. simulation.js— candidate simulation engine
+     6. chatbot.js   — AI chatbot widget
+     7. analytics.js — page analytics stub
+     8. main.js      — command palette + modals + misc UI
+════════════════════════════════════════════════════════════ -->
+<script src="js/typing.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/timeline.js"></script>
+<script src="js/simulation.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/main.js"></script>
+
+<!-- Expose openProjectModal globally for onclick handlers in HTML -->
 <script>
-// ===== CURSOR =====
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
-(function loop(){
-  cur.style.left=mx+'px'; cur.style.top=my+'px';
-  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
-  requestAnimationFrame(loop);
-})();
-
-// ===== PAGE TURN ENGINE =====
-const PAGES = 8;
-const pageEls = Array.from({length:PAGES},(_,i)=>document.getElementById('page-'+i));
-const tabs = document.querySelectorAll('.tab-btn');
-const dots = document.getElementById('progress-dots');
-const label = document.getElementById('page-label');
-const cover = document.getElementById('cover-page');
-const hint = document.getElementById('turn-hint');
-const prev = document.getElementById('arrow-prev');
-const next = document.getElementById('arrow-next');
-let current = 0;
-let coverOpen = false;
-let turning = false;
-
-const PAGE_NAMES = ['Home','About','Projects','Skills','Experience','Learning','Certs','Contact'];
-
-// build dots
-PAGE_NAMES.forEach((n,i)=>{
-  const d=document.createElement('div');
-  d.className='dot'+(i===0?' active':'');
-  d.title=n;
-  d.onclick=()=>goToPage(i);
-  dots.appendChild(d);
-});
-
-function updateDots(idx){
-  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
-}
-function updateTabs(idx){
-  tabs.forEach(t=>t.classList.toggle('active',+t.dataset.page===idx));
-}
-function showLabel(name){
-  label.textContent=name;
-  label.classList.add('show');
-  setTimeout(()=>label.classList.remove('show'),1400);
-}
-
-// Page stacking — turned pages sit above, un-turned below
-function applyZIndex(){
-  pageEls.forEach((p,i)=>{
-    const turned = p.classList.contains('turned');
-    p.style.zIndex = turned ? (20 + i) : (10 - i);
-  });
-}
-
-function goToPage(target, skipAnim){
-  if(turning || target===current) return;
-  if(!coverOpen){ openCover(()=>goToPage(target,skipAnim)); return; }
-  turning=true;
-  const dir = target > current ? 1 : -1;
-
-  // animate one page at a time between current and target
-  function step(from){
-    if(from===target){
-      turning=false;
-      applyZIndex();
-      return;
-    }
-    const next_= from + dir;
-    const pageToFlip = dir===1 ? pageEls[from] : pageEls[next_];
-    if(dir===1){
-      pageToFlip.classList.add('turned');
-    } else {
-      pageToFlip.classList.remove('turned');
-    }
-    applyZIndex();
-    // add page-flip sound-like shadow pulse
-    pageToFlip.style.boxShadow = dir===1
-      ? '-6px 0 50px rgba(80,20,40,.28)'
-      : '6px 0 50px rgba(80,20,40,.28)';
-    setTimeout(()=>{ pageToFlip.style.boxShadow=''; },700);
-
-    current = next_;
-    updateDots(current);
-    updateTabs(current);
-    showLabel(PAGE_NAMES[current]);
-
-    // chain with delay for each page
-    const delay = Math.abs(target-current)<2 ? 0 : 80;
-    setTimeout(()=>step(current), 800+delay);
+  // Global helper for Architecture buttons (onclick attributes in HTML)
+  // Works independently of main.js loading order
+  function openProjectModal(id) {
+    const overlay = document.getElementById('project-modal-overlay');
+    const modals  = document.querySelectorAll('.project-modal');
+    modals.forEach(function(m) {
+      m.style.display = (m.id === id) ? '' : 'none';
+    });
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
-  step(current);
-}
-
-function openCover(cb){
-  cover.classList.add('opened');
-  coverOpen=true;
-  hint.style.display='none';
-  setTimeout(()=>{ if(cb) cb(); },700);
-}
-
-cover.addEventListener('click',()=>openCover());
-
-// arrows
-prev.onclick=()=>{ if(current>0) goToPage(current-1); };
-next.onclick=()=>{ if(current<PAGES-1) goToPage(current+1); };
-
-// tab clicks
-tabs.forEach(t=>t.addEventListener('click',()=>goToPage(+t.dataset.page)));
-
-// keyboard
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='ArrowDown') next.click();
-  if(e.key==='ArrowLeft'||e.key==='ArrowUp') prev.click();
-});
-
-// swipe
-let touchX=0;
-document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX);
-document.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-touchX;
-  if(Math.abs(dx)>50){ dx<0?next.click():prev.click(); }
-});
-
-// init
-applyZIndex();
-updateDots(0);
-updateTabs(0);
-
-// ===== MODAL =====
-function openModal(id){
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(id){
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow='';
-}
-document.querySelectorAll('.modal-overlay').forEach(el=>{
-  el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id);});
-});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(el=>closeModal(el.id));
-});
 </script>
+
 </body>
 </html>

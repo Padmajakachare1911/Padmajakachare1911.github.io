@@ -1,0 +1,40 @@
+# PadmajaAI v2.6 — .gitignore
+# GitHub Pages serves files directly, so keep this minimal
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if ever used)
+node_modules/
+package-lock.json
+
+# Build output (not needed — no build step)
+dist/
+build/
+
+# Environment files (never commit API keys)
+.env
+.env.local
+.env.*.local
+
+# Temp files
+*.tmp
+*.temp

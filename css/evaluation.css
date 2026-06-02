@@ -1,0 +1,252 @@
+/**
+ * evaluation.css
+ * ─────────────────────────────────────────────────────────────
+ * PURPOSE: Styles for "Model Evaluation Report" — an animated
+ *          stats dashboard showing achievements, contributions,
+ *          and certifications.
+ *
+ * LOGIC: Animated counters triggered on scroll.
+ *        A canvas-based radar/bar chart drawn by animations.js.
+ *        Certification cards in a masonry-style grid.
+ *
+ * CUSTOMIZATION: Update stat numbers in index.html
+ *                data-count="N" attributes.
+ * ─────────────────────────────────────────────────────────────
+ */
+
+#evaluation { background: var(--color-surface); }
+
+/* ── STATS ROW ─────────────────────────────────────────────── */
+.evaluation__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-12);
+}
+
+.stat-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+  transform-origin: center;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: var(--shadow-card);
+}
+
+.stat-card:hover::after { transform: scaleX(1); }
+
+.stat-card__icon {
+  font-size: 32px;
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.stat-card__value {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-black);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: var(--space-2);
+}
+
+.stat-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── EVALUATION LAYOUT ─────────────────────────────────────── */
+.evaluation__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+/* Chart container */
+.evaluation__chart-box {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+}
+
+.chart-box__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+#eval-canvas {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Legend */
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── CERTIFICATIONS GRID ───────────────────────────────────── */
+.evaluation__certs {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+}
+
+.cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: var(--space-2);
+}
+
+/* Styled scrollbar for cert list */
+.cert-list::-webkit-scrollbar { width: 4px; }
+.cert-list::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-full);
+}
+
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.cert-item:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  transform: translateX(4px);
+}
+
+.cert-item__icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.cert-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cert-item__name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cert-item__issuer {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+
+.cert-item__date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── ACHIEVEMENTS SECTION ──────────────────────────────────── */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.achievement-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  transition: all var(--transition-base);
+}
+
+.achievement-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+.achievement-card__icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.achievement-card__title {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-1);
+}
+
+.achievement-card__desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}

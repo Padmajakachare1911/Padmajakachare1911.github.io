@@ -1,0 +1,443 @@
+/**
+ * hero.css
+ * ─────────────────────────────────────────────────────────────
+ * PURPOSE: Hero / landing section styles including the boot
+ *          sequence overlay, main headline, metrics cards,
+ *          and particle canvas background.
+ *
+ * LOGIC: The boot overlay animates in sequence (JS-driven),
+ *        then slides away to reveal the hero content.
+ *        Metrics cards use CSS counters animated via JS.
+ *        The neural particle background is on a <canvas>.
+ *
+ * CUSTOMIZATION:
+ *   - Change boot-text strings in typing.js
+ *   - Update metric labels in index.html data attributes
+ *   - Adjust animation timings via --boot-step-* variables
+ * ─────────────────────────────────────────────────────────────
+ */
+
+/* ── BOOT SEQUENCE OVERLAY ─────────────────────────────────── */
+#boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: #0a0a14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  overflow: hidden;
+}
+
+#boot-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.02);
+}
+
+/* Boot overlay background grid */
+#boot-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scanline animation */
+#boot-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  animation: scanline 4s linear infinite;
+  opacity: 0.6;
+}
+
+.boot__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  z-index: 1;
+}
+
+.boot__logo-icon {
+  width: 72px;
+  height: 72px;
+  background: var(--gradient-primary);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
+  animation: glow-pulse 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.boot__logo-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+}
+
+.boot__system-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: #F8FAFC;
+  letter-spacing: 0.05em;
+}
+
+.boot__version {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+}
+
+/* Boot sequence log area */
+.boot__log {
+  z-index: 1;
+  width: min(480px, 90vw);
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 180px;
+}
+
+.boot__log-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: #94A3B8;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.boot__log-line.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.boot__log-line.done .boot__log-status { color: #10B981; }
+.boot__log-line.loading .boot__log-status {
+  color: var(--color-primary);
+  animation: blink 1s infinite;
+}
+
+.boot__log-status {
+  font-size: 12px;
+  min-width: 20px;
+}
+
+.boot__log-text { color: #CBD5E1; }
+
+/* Boot progress bar */
+.boot__progress-wrap {
+  z-index: 1;
+  width: min(480px, 90vw);
+}
+
+.boot__progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(139,92,246,0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.boot__progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  width: 0%;
+  transition: width 0.4s ease;
+  position: relative;
+}
+
+.boot__progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px; height: 8px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+.boot__progress-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-primary);
+  text-align: right;
+  margin-top: var(--space-2);
+}
+
+/* ── HERO SECTION ──────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--navbar-h);
+  background: var(--gradient-hero);
+}
+
+/* Neural canvas background */
+#neural-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* Glow orbs in hero */
+.hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero__orb--1 {
+  width: 400px; height: 400px;
+  background: rgba(139, 92, 246, 0.15);
+  top: 10%; right: -5%;
+  animation-delay: 0s;
+}
+
+.hero__orb--2 {
+  width: 300px; height: 300px;
+  background: rgba(196, 181, 253, 0.1);
+  bottom: 10%; left: 5%;
+  animation-delay: -4s;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+/* ── HERO LEFT CONTENT ─────────────────────────────────────── */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.hero__system-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  letter-spacing: 0.1em;
+  width: fit-content;
+}
+
+.hero__system-badge::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--color-success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-success);
+  animation: pulse-dot 2s infinite;
+}
+
+.hero__headline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.hero__pre-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.hero__title {
+  font-size: clamp(var(--text-4xl), 6vw, var(--text-7xl));
+  font-weight: var(--weight-black);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__subtitle {
+  font-size: clamp(var(--text-base), 2vw, var(--text-xl));
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+/* Typewriter cursor */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--color-primary);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s infinite;
+}
+
+.hero__cta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Scroll indicator */
+.hero__scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  margin-top: var(--space-4);
+  animation: float 3s ease-in-out infinite;
+}
+
+.hero__scroll-hint svg {
+  animation: float 1.5s ease-in-out infinite;
+}
+
+/* ── HERO RIGHT — METRICS PANEL ────────────────────────────── */
+.hero__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.hero__metrics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.hero__metrics-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero__metrics-live {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-success);
+}
+
+.hero__metrics-live::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--color-success);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s infinite;
+}
+
+/* Individual metric card */
+.metric-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  transition: all var(--transition-base);
+  animation: fadeInUp 0.5s ease both;
+}
+
+.metric-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: var(--shadow-glow);
+  transform: translateX(4px);
+}
+
+.metric-card__icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-lg);
+  background: rgba(139, 92, 246, 0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.metric-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.metric-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-1);
+}
+
+.metric-card__value {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.metric-card__bar {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.metric-card__bar .progress-track {
+  height: 4px;
+}
